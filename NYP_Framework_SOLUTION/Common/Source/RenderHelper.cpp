@@ -16,6 +16,8 @@ void RenderHelper::RenderMesh(Mesh* _mesh)
 	currProg->UpdateInt("lightEnabled", 0);
 
 		// Update textures first if available
+	if (_mesh)
+	{
 		if (_mesh->textureID > 0)
 		{
 			currProg->UpdateInt("colorTextureEnabled", 1);
@@ -36,6 +38,7 @@ void RenderHelper::RenderMesh(Mesh* _mesh)
 		{
 			GraphicsManager::GetInstance()->UnbindTexture(0);
 		}
+	}
 }
 
 void RenderHelper::RenderMeshWithLight(Mesh* _mesh)

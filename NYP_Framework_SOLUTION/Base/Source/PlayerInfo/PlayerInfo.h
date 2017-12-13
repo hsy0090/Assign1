@@ -3,8 +3,9 @@
 #include "../FPSCamera.h"
 #include "../GroundEntity.h"
 #include "../WeaponInfo/WeaponInfo.h"
+#include "../GenericEntity.h"
 
-class CPlayerInfo
+class CPlayerInfo : public GenericEntity
 {
 protected:
 	static CPlayerInfo *s_instance;
@@ -114,9 +115,16 @@ public:
 	int GetSWeapon(void) const;
 	CWeaponInfo** weaponSManager;
 
+	//Collision
+	void Setmove(bool _move);
+
+	//camera
+	float m_fcurrent_pitch;
+	float m_fcurrent_yaw;
+	Vector3 target, up;
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
-	Vector3 position, target, up;
 	Vector3 maxBoundary, minBoundary;
 	GroundEntity* m_pTerrain;
 
@@ -149,4 +157,7 @@ private:
 	//secondary
 	int m_iCurrentSWeapon;
 	const int m_iNumOfSWeapon = 2;
+
+	//Collision
+	bool m_bmove;
 };

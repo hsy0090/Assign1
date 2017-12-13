@@ -1,7 +1,9 @@
 #include "AR.h"
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
 
-
-CAssualtRifle::CAssualtRifle()
+CAssualtRifle::CAssualtRifle():
+	GenericEntity(NULL)
 {
 }
 
@@ -31,4 +33,14 @@ void CAssualtRifle::Init(void)
 	elapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
 	bFire = true;
+}
+
+void CAssualtRifle::Render()
+{
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderHelper::RenderMesh(GetLODMesh());
+	modelStack.PopMatrix();
 }

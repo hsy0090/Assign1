@@ -1,10 +1,17 @@
 #include "Pistol.h"
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
 
-
-CPistol::CPistol()
+CPistol::CPistol():
+	GenericEntity(NULL)
 {
 }
 
+CPistol::CPistol(Mesh* _modelMesh):
+	GenericEntity(_modelMesh)
+{
+	
+}
 
 CPistol::~CPistol()
 {
@@ -31,4 +38,24 @@ void CPistol::Init(void)
 	elapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
 	bFire = true;
+
+	InitLOD("cube", "sphere", "cubeSG");
+}
+
+void CPistol::Render()
+{
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	if (GetLODStatus() == true)
+	{
+		if (theDetailLevel != NO_DETAILS)
+			RenderHelper::RenderMesh(GetLODMesh());
+	}
+	else
+		RenderHelper::RenderMesh(modelMesh);
+
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
 }

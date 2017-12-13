@@ -31,8 +31,10 @@ public:
 	// Get the flag, bLaser
 	virtual bool GetIsLaser(void) const;
 
-protected:
 	Vector3 position;
+
+protected:
+
 	Vector3 scale;
 
 	bool isDone;

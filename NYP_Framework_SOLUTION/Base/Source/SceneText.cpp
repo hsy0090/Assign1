@@ -23,6 +23,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
 #include "Waypoint\WaypointManager.h"
+#include "WeaponInfo\Pistol.h"
 
 #include <iostream>
 using namespace std;
@@ -147,7 +148,6 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);
 	MeshBuilder::GetInstance()->GetMesh("GEO_GRASS_LIGHTGREEN")->textureID = LoadTGA("Image//grass_lightgreen.tga");
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.0f, 0.64f, 0.0f), 1.0f);
-
 	MeshBuilder::GetInstance()->GenerateQuad("SKYBOX_FRONT", Color(1, 1, 1), 1.f);
 	MeshBuilder::GetInstance()->GenerateQuad("SKYBOX_BACK", Color(1, 1, 1), 1.f);
 	MeshBuilder::GetInstance()->GenerateQuad("SKYBOX_LEFT", Color(1, 1, 1), 1.f);
@@ -162,7 +162,8 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
-
+	MeshBuilder::GetInstance()->GenerateOBJ("pistol", "OBJ//Pistol_.obj");
+	MeshBuilder::GetInstance()->GetMesh("pistol")->textureID = LoadTGA("Image//Pistol.tga");
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -261,6 +262,9 @@ void SceneText::Init()
 	Top[0] = Create::Text2DObject("text", Vector3(-halfWindowWidth / 2, halfWindowHeight - fontSize * 2, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
 
 	timer = 100.0;
+
+	pistol = Create::Asset("pistol", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
+	rifle = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 }
 
 void SceneText::Update(double dt)
@@ -429,12 +433,38 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
 
+	Vector3 view = (playerInfo->position - playerInfo->target).Normalized();
+	Vector3 right = view.Cross(playerInfo->up).Normalized();
+
+	if (CPlayerInfo::GetInstance()->GetPWeapon() == 1)
+	{
+		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+		modelStack.PushMatrix();
+		modelStack.Translate(playerInfo->position.x + 0.3, playerInfo->position.y - 0.5, playerInfo->position.z);
+		modelStack.Rotate((playerInfo->m_fcurrent_yaw), playerInfo->up.x, playerInfo->up.y, playerInfo->up.z);
+		modelStack.Rotate((playerInfo->m_fcurrent_pitch), right.x, right.y, right.z);
+		rifle->Render();
+		modelStack.PopMatrix();
+	}
+	else if (CPlayerInfo::GetInstance()->GetPWeapon() == 0)
+	{
+		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+		modelStack.PushMatrix();
+		modelStack.Translate(playerInfo->position.x, playerInfo->position.y, playerInfo->position.z);
+		modelStack.Rotate((playerInfo->m_fcurrent_yaw), right.x, right.y, right.z);
+		modelStack.Rotate((playerInfo->m_fcurrent_pitch), playerInfo->up.x, playerInfo->up.y, playerInfo->up.z);
+		modelStack.Scale(0.05f, 0.05f, 0.05f);
+		pistol->Render();
+		modelStack.PopMatrix();
+	}
+
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
 	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	EntityManager::GetInstance()->RenderUI();
+
 }
 
 void SceneText::Exit()

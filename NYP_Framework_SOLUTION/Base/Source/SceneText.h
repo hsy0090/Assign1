@@ -11,6 +11,8 @@
 #include "GenericEntity.h"
 #include "SceneGraph/UpdateTransformation.h"
 #include "Enemy\Enemy.h"
+#include "WeaponInfo\Pistol.h"
+#include "WeaponInfo\AR.h"
 
 class ShaderProgram;
 class SceneManager;
@@ -42,7 +44,9 @@ private:
 
 	GenericEntity* theCube;
 	CEnemy* theEnemy;
-
+	GenericEntity* pistol;
+	GenericEntity* rifle;
+	
 	//Timer
 	double timer;
 

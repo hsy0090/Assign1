@@ -11,6 +11,7 @@
 #include "../WeaponInfo/GrenadeThrow.h"
 #include "../WeaponInfo/MineThrow.h"
 #include "../WeaponInfo/Detonator.h"
+#include "../EntityManager.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -35,6 +36,8 @@ CPlayerInfo::CPlayerInfo(void)
 	, m_iCurrentSWeapon(0)
 	, m_fhealth(100.f)
 	, m_iscore(0)
+	, GenericEntity(NULL)
+	, m_bmove(true)
 {
 }
 
@@ -115,6 +118,13 @@ void CPlayerInfo::Init(void)
 	// Set secondary weapon
 	secondaryWeapon = weaponSManager[GetSWeapon()];
 	secondaryWeapon->Init();
+
+	// Initialise the Collider
+	this->SetCollider(true);
+	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
+
+	// Add to EntityManager
+	EntityManager::GetInstance()->AddEntity(this, true);
 }
 
 // Returns true if the player is on ground
@@ -332,27 +342,99 @@ void CPlayerInfo::Update(double dt)
 	{
 		Vector3 viewVector = target - position;
 		Vector3 rightUV;
+
+		bool move = true;
 		if (KeyboardController::GetInstance()->IsKeyDown('W'))
 		{
-			position += viewVector.Normalized() * (float)m_dSpeed * (float)dt;
+			std::list<EntityBase*>::iterator collider;
+			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
+			{
+				if (*collider == this)
+					continue;
+
+				if ((*collider)->HasCollider())
+				{
+					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*collider);
+					if (EntityManager::GetInstance()->CheckSphereCollision(this, thatEntity))
+					{
+						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
+						{
+							m_fhealth--;
+							move = false;
+
+						}
+					}
+				}
+			}
+
+			if (move)
+				position += viewVector.Normalized() * (float)m_dSpeed * (float)dt;
+
 		}
 		else if (KeyboardController::GetInstance()->IsKeyDown('S'))
 		{
 			position -= viewVector.Normalized() * (float)m_dSpeed * (float)dt;
 		}
+		bool move1 = true;
 		if (KeyboardController::GetInstance()->IsKeyDown('A'))
 		{
-			rightUV = (viewVector.Normalized()).Cross(up);
-			rightUV.y = 0;
-			rightUV.Normalize();
-			position -= rightUV * (float)m_dSpeed * (float)dt;
+			std::list<EntityBase*>::iterator collider;
+			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
+			{
+				if (*collider == this)
+					continue;
+
+				if ((*collider)->HasCollider())
+				{
+					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*collider);
+					if (EntityManager::GetInstance()->CheckSphereCollision(this, thatEntity))
+					{
+						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
+						{
+							m_fhealth--;
+							move1 = false;
+						}
+					}
+				}
+			}
+
+			if (move1)
+			{
+				rightUV = (viewVector.Normalized()).Cross(up);
+				rightUV.y = 0;
+				rightUV.Normalize();
+				position -= rightUV * (float)m_dSpeed * (float)dt;
+			}
 		}
 		else if (KeyboardController::GetInstance()->IsKeyDown('D'))
 		{
-			rightUV = (viewVector.Normalized()).Cross(up);
-			rightUV.y = 0;
-			rightUV.Normalize();
-			position += rightUV * (float)m_dSpeed * (float)dt;
+			std::list<EntityBase*>::iterator collider;
+			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
+			{
+				if (*collider == this)
+					continue;
+
+				if ((*collider)->HasCollider())
+				{
+					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*collider);
+					if (EntityManager::GetInstance()->CheckSphereCollision(this, thatEntity))
+					{
+						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
+						{
+							m_fhealth--;
+							move1 = false;
+						}
+					}
+				}
+			}
+
+			if (move1)
+			{
+				rightUV = (viewVector.Normalized()).Cross(up);
+				rightUV.y = 0;
+				rightUV.Normalize();
+				position += rightUV * (float)m_dSpeed * (float)dt;
+			}
 		}
 		// Constrain the position
 		Constrain();
@@ -432,6 +514,42 @@ void CPlayerInfo::Update(double dt)
 		Vector3 rightUV;
 
 		{
+			float yaw = (float)(-m_dSpeed * camera_yaw * (float)dt * 10);
+			m_fcurrent_yaw += yaw;
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+		}
+		{
+			float pitch = (float)(-m_dSpeed * camera_pitch * (float)dt * 10);
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+			Mtx44 rotation;
+			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
+
+			if (!((rotation * viewUV).y > 0.8 && pitch > 0))
+				if (!((rotation * viewUV).y < -0.7 && pitch < 0))
+				{
+					m_fcurrent_pitch += pitch;
+
+					viewUV = rotation * viewUV;
+					target = position + viewUV;
+				}
+		}
+	}
+
+	/*{
+		Vector3 viewUV = (target - position).Normalized();
+		Vector3 rightUV;
+
+		{
 			float yaw = (float)(-m_dSpeed * camera_yaw * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
@@ -457,7 +575,7 @@ void CPlayerInfo::Update(double dt)
 				target = position + viewUV;
 			}
 		}
-	}
+	}*/
 
 	// If the user presses SPACEBAR, then make him jump
 	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
@@ -521,6 +639,8 @@ void CPlayerInfo::Update(double dt)
 		attachedCamera->SetCameraTarget(target);
 		attachedCamera->SetCameraUp(up);
 	}
+
+	//this->SetAABB()
 }
 
 // Constrain the position within the borders
@@ -623,4 +743,9 @@ bool CPlayerInfo::ChangeSWeapon(void)
 int CPlayerInfo::GetSWeapon(void) const
 {
 	return  m_iCurrentSWeapon;
+}
+
+void CPlayerInfo::Setmove(bool _move)
+{
+	m_bmove = _move;
 }

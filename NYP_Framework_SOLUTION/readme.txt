@@ -10,13 +10,11 @@ Health*/
 Score*(/)
 Timer*/
 Gameover*(/)
-Leaderboard?
-Edit Spatial partition*
-Weapon:pistol,mines?,AK?M16?*(/)
+Weapon:pistol,mines?,AK?M16?*/
 Enemy*
 scope?
-player coll*
-detonator*(/)
+player coll*/
+detonator*/
 textures(models:hand, pistol, bullet, buildings&people&debris(boxs,etc))* (High, Medium, Low)
 Render obj in camera?
 Bonus:farm(windmill), town(tank)?

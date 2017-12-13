@@ -1,9 +1,10 @@
 #pragma once
 
 #include "WeaponInfo.h"
+#include "../GenericEntity.h"
 
 class CAssualtRifle :
-	public CWeaponInfo
+	public CWeaponInfo , public GenericEntity
 {
 public:
 	CAssualtRifle();
@@ -11,5 +12,6 @@ public:
 
 	// Initialise this instance to default values
 	void Init(void);
+	void Render();
 };
 
