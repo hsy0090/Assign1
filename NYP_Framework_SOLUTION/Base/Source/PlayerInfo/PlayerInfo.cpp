@@ -640,7 +640,7 @@ void CPlayerInfo::Update(double dt)
 		attachedCamera->SetCameraUp(up);
 	}
 
-	//this->SetAABB()
+	this->SetPAABB(Vector3(5, 5, 5), GetPos());
 }
 
 // Constrain the position within the borders

@@ -458,6 +458,7 @@ bool EntityManager::CheckForCollision(void)
 						{
 							if (typeid(*thisEntity) != typeid(CPlayerInfo) && typeid(*thatEntity) != typeid(CPlayerInfo))
 							{
+								CPlayerInfo::GetInstance()->AddScore(10);
 								thatEntity->SetIsDone(true);
 								thisEntity->SetIsDone(true);
 
@@ -465,14 +466,15 @@ bool EntityManager::CheckForCollision(void)
 								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
 								{
 									cout << "*** This Entity removed ***" << endl;
+									CPlayerInfo::GetInstance()->AddScore(10);
 								}
 								// Remove from Scene Graph
 								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
 								{
 									cout << "*** That Entity removed ***" << endl;
+									CPlayerInfo::GetInstance()->AddScore(10);
 								}
 							}
-
 						}
 					}
 				}

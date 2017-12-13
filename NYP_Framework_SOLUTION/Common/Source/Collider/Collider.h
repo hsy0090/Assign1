@@ -9,19 +9,25 @@ public:
 
 	// Set the maxAABB and minAABB
 	virtual void SetPAABB(Vector3 size, Vector3 pos);
+	virtual void SetPAAABB(Vector3 size, Vector3 pos);
 	// Set the maxAABB and minAABB
 	virtual void SetAABB(Vector3 maxAABB, Vector3 minAABB);
 	// Set the maxAABB
 	virtual void SetMaxAABB(Vector3 maxAABB);
 	// Get the maxAABB
 	virtual Vector3 GetMaxAABB(void);
+	virtual Vector3 GetMaxAAABB(void);
 	// Set the minAABB
 	virtual void SetMinAABB(Vector3 minAABB);
 	// Get the minAABB
 	virtual Vector3 GetMinAABB(void);
+	virtual Vector3 GetMinAAABB(void);
 
 protected:
 	// Vector3 variables to store coordinates of the AABB bounding box of an object
 	Vector3 maxAABB;
 	Vector3 minAABB;
+
+	Vector3 AmaxAABB;
+	Vector3 AminAABB;
 };

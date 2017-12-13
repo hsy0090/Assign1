@@ -44,6 +44,7 @@ private:
 
 	GenericEntity* theCube;
 	CEnemy* theEnemy;
+	CEnemy* parts;
 	GenericEntity* pistol;
 	GenericEntity* rifle;
 	
