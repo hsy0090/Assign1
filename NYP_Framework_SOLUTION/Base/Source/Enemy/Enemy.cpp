@@ -174,6 +174,7 @@ void CEnemy::Update(double dt)
 	Constrain();
 
 	this->SetPAABB(Vector3(scale.x, scale.y, scale.z), position);
+	this->SetAABB(this->GetMaxAABB(), this->GetMinAABB());
 	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
@@ -287,7 +288,6 @@ void CEnemy::Attack(Vector3 playermax, Vector3 playermin, double dt)
 
 	target = CPlayerInfo::GetInstance()->GetPos();
 	Vector3 viewVector = (target - position).Normalized();
-
 
 	bool collision = EntityManager::GetInstance()->CheckOverlap(this->GetMinAABB(), this->GetMaxAABB(), playermin, playermax);
 

@@ -1,1 +1,24 @@
-﻿
+﻿  Skipping... (no relevant changes detected)
+  Win32Input.cpp
+  Vector3.cpp
+  Vector2.cpp
+  Utility.cpp
+  timer.cpp
+  ShaderProgram.cpp
+  SceneManager.cpp
+  RenderHelper.cpp
+  Mtx44.cpp
+  MouseController.cpp
+  MeshBuilder.cpp
+  Mesh.cpp
+  MatrixStack.cpp
+  MathUtility.cpp
+  LoadTGA.cpp
+  LoadOBJ.cpp
+  LightBase.cpp
+  KeyboardController.cpp
+  GraphicsManager.cpp
+  EntityBase.cpp
+  Collider.cpp
+  CameraBase.cpp
+  Common.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\New\Assign1\NYP_Framework_SOLUTION\Debug\Common.lib
