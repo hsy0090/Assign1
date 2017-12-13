@@ -12,6 +12,12 @@ CCollider::~CCollider()
 {
 }
 
+void CCollider::SetPAABB(Vector3 size, Vector3 pos)
+{
+	this->maxAABB = size * (0.5, 0.5, 0.5) + pos;
+	this->minAABB = pos - size * (0.5, 0.5, 0.5);
+}
+
 // Set the maxAABB and minAABB
 void CCollider::SetAABB(Vector3 maxAABB, Vector3 minAABB)
 {

@@ -15,6 +15,7 @@ CEnemy::CEnemy()
 	, minBoundary(Vector3(0.0f, 0.0f, 0.0f))
 	, m_pTerrain(NULL)
 	, m_iWayPointIndex(-1)
+	, state(IDLE)
 {
 	listOfWaypoints.clear();
 }
@@ -62,6 +63,8 @@ void CEnemy::Init(void)
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
+	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
+	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
@@ -149,12 +152,30 @@ CWaypoint* CEnemy::GetNextWaypoint(void)
 // Update
 void CEnemy::Update(double dt)
 {
-	Vector3 viewVector = (target - position).Normalized();
-	position += viewVector * (float)m_dSpeed * (float)dt;
+	switch (state)
+	{
+	case IDLE:
+		Idle(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		break;
+	case SEARCH:
+		Search(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		break;
+	case ATTACK:
+		Attack(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		break;
+	default:
+		break;
+	}
+
+
 	//cout << position << "..." << viewVector << endl;
 
 	// Constrain the position
 	Constrain();
+
+	this->SetPAABB(Vector3(scale.x, scale.y, scale.z), position);
+	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
+	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Update the target
 	/*
@@ -164,7 +185,7 @@ void CEnemy::Update(double dt)
 	target.z = position.z * -1;
 	*/
 
-	if ((target - position).LengthSquared() < 25.0f)
+	/*if ((target - position).LengthSquared() < 25.0f)
 	{
 		CWaypoint* nextWaypoint = GetNextWaypoint();
 		if (nextWaypoint)
@@ -172,7 +193,7 @@ void CEnemy::Update(double dt)
 		else
 			target = Vector3(0, 0, 0);
 		cout << "Next target: " << target << endl;
-	}
+	}*/
 }
 
 // Constrain the position within the borders
@@ -210,4 +231,66 @@ void CEnemy::Render(void)
 		}
 	}
 	modelStack.PopMatrix();
+}
+
+void CEnemy::Idle(Vector3 playermax, Vector3 playermin, double dt)
+{
+	if (EntityManager::GetInstance()->CheckOverlap(Searchrange.GetMinAABB(), Searchrange.GetMaxAABB(), playermin, playermax))
+	{
+		state = SEARCH;
+	}
+}
+
+void CEnemy::Search(Vector3 playermax, Vector3 playermin, double dt)
+{
+	if (!EntityManager::GetInstance()->CheckOverlap(Searchrange.GetMinAABB(), Searchrange.GetMaxAABB(), playermin, playermax))
+	{
+		state = IDLE;
+	}
+	else
+	{
+		if ((target - position).LengthSquared() < 25.0f)
+		{
+			CWaypoint* nextWaypoint = GetNextWaypoint();
+			if (nextWaypoint)
+				target = nextWaypoint->GetPosition();
+			else
+				target = Vector3(0, 0, 0);
+			cout << "Next target: " << target << endl;
+		}
+	}
+
+	Vector3 viewVector = (target - position).Normalized();
+
+	bool collision = EntityManager::GetInstance()->CheckOverlap(GetMinAABB(), GetMaxAABB(), playermin, playermax);
+
+	if (!collision && state != IDLE)
+		position += viewVector * (float)m_dSpeed * (float)dt;
+
+	if (EntityManager::GetInstance()->CheckOverlap(Attackrange.GetMinAABB(), Attackrange.GetMaxAABB(), playermin, playermax))
+	{
+		state = ATTACK;
+	}
+}
+
+void CEnemy::Attack(Vector3 playermax, Vector3 playermin, double dt)
+{
+	if (!EntityManager::GetInstance()->CheckOverlap(Attackrange.GetMinAABB(), Attackrange.GetMaxAABB(), playermin, playermax))
+	{
+		state = SEARCH;
+	}
+
+	if (EntityManager::GetInstance()->CheckOverlap(this->GetMinAABB(), this->GetMaxAABB(), playermin, playermax))
+	{
+		CPlayerInfo::GetInstance()->AddHealth(-1);
+	}
+
+	target = CPlayerInfo::GetInstance()->GetPos();
+	Vector3 viewVector = (target - position).Normalized();
+
+
+	bool collision = EntityManager::GetInstance()->CheckOverlap(this->GetMinAABB(), this->GetMaxAABB(), playermin, playermax);
+
+	if (!collision && state != IDLE)
+		position += viewVector * (float)m_dSpeed * (float)dt;
 }

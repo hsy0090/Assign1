@@ -17,10 +17,26 @@ protected:
 	Vector3 maxBoundary, minBoundary;
 	GroundEntity* m_pTerrain;
 
+	enum States
+	{
+		IDLE,
+		SEARCH,
+		ATTACK,
+	};
+
+	Vector3 goal;
+	States state;
+
+	CCollider Searchrange;
+	CCollider Attackrange;
+
 	// Vector containing IDs of Waypoints
 	vector<int> listOfWaypoints;
 	// Current ID of Waypoint
 	int m_iWayPointIndex;
+
+	Vector3 dir;
+	float dirangle;
 
 	double m_dSpeed;
 	double m_dAcceleration;
@@ -62,4 +78,9 @@ public:
 	void Constrain(void);
 	// Render
 	void Render(void);
+
+	//States
+	void Idle(Vector3 playermax, Vector3 playermin, double dt);
+	void Search(Vector3 playermax, Vector3 playermin, double dt);
+	void Attack(Vector3 playermax, Vector3 playermin, double dt);
 };

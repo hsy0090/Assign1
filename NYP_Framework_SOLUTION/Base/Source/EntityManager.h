@@ -33,12 +33,15 @@ public:
 	bool CheckAABBCollision(EntityBase *ThisEntity, EntityBase *ThatEntity);
 	bool CheckAABBCollision(Vector3 Pos, Vector3 MaxAABB, Vector3 MinAABB, EntityBase *ThatEntity);
 
+	// Check for overlap
+	bool CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vector3 thatMinAABB, Vector3 thatMaxAABB);
+
 private:
 	EntityManager();
 	virtual ~EntityManager();
 
 	// Check for overlap
-	bool CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vector3 thatMinAABB, Vector3 thatMaxAABB);
+	//bool CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vector3 thatMinAABB, Vector3 thatMaxAABB);
 	
 	// Check for intersection between a line segment and a plane
 	bool GetIntersection(const float fDst1, const float fDst2, Vector3 P1, Vector3 P2, Vector3 &Hit);

@@ -8,6 +8,8 @@ public:
 	virtual ~CCollider();
 
 	// Set the maxAABB and minAABB
+	virtual void SetPAABB(Vector3 size, Vector3 pos);
+	// Set the maxAABB and minAABB
 	virtual void SetAABB(Vector3 maxAABB, Vector3 minAABB);
 	// Set the maxAABB
 	virtual void SetMaxAABB(Vector3 maxAABB);

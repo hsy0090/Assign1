@@ -12,7 +12,6 @@ Timer*/
 Gameover*(/)
 Weapon:pistol,mines?,AK?M16?*/
 Enemy*
-scope?
 player coll*/
 detonator*/
 textures(models:hand, pistol, bullet, buildings&people&debris(boxs,etc))* (High, Medium, Low)

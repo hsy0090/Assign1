@@ -436,7 +436,7 @@ void SceneText::Render()
 	Vector3 view = (playerInfo->position - playerInfo->target).Normalized();
 	Vector3 right = view.Cross(playerInfo->up).Normalized();
 
-	if (CPlayerInfo::GetInstance()->GetPWeapon() == 1)
+	/*if (CPlayerInfo::GetInstance()->GetPWeapon() == 1)
 	{
 		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 		modelStack.PushMatrix();
@@ -456,7 +456,7 @@ void SceneText::Render()
 		modelStack.Scale(0.05f, 0.05f, 0.05f);
 		pistol->Render();
 		modelStack.PopMatrix();
-	}
+	}*/
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
