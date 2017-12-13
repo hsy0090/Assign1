@@ -164,6 +164,28 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 	MeshBuilder::GetInstance()->GenerateOBJ("pistol", "OBJ//Pistol_.obj");
 	MeshBuilder::GetInstance()->GetMesh("pistol")->textureID = LoadTGA("Image//Pistol.tga");
+
+	//assign models
+	MeshBuilder::GetInstance()->GenerateOBJ("Cottage", "OBJ//COTTAGE.obj");
+	MeshBuilder::GetInstance()->GetMesh("Cottage")->textureID = LoadTGA("Image//COTTAGE.tga");
+
+
+
+	//LOD model Crates
+	//most detailed
+	MeshBuilder::GetInstance()->GenerateOBJ("Crate", "OBJ//Crate.obj");
+	MeshBuilder::GetInstance()->GetMesh("Crate")->textureID = LoadTGA("Image//Crate.tga");
+
+	//mid detailed
+	MeshBuilder::GetInstance()->GenerateOBJ("Crate2", "OBJ//Crate2.obj");
+	MeshBuilder::GetInstance()->GetMesh("Crate2")->textureID = LoadTGA("Image//Crate2.tga");
+
+	//least detailed
+	MeshBuilder::GetInstance()->GenerateOBJ("Crate3", "OBJ//Crate3.obj");
+	MeshBuilder::GetInstance()->GetMesh("Crate3")->textureID = LoadTGA("Image//Crate3.tga");
+
+
+
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -175,10 +197,18 @@ void SceneText::Init()
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f));
+
+	//house
+	GenericEntity* cottage = Create::Entity("Cottage", Vector3(-100.0f, -10.0f, 0.0f), Vector3(15.0f, 15.0f, 15.0f));
+	cottage->SetCollider(true);
+	cottage->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+
+	//lod crate
+	GenericEntity* aCube = Create::Entity("Crate", Vector3(-20.0f, -6.0f, -20.0f), Vector3(0.2f, 0.2f, 0.2f));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	aCube->InitLOD("cube", "sphere", "cubeSG");
+	aCube->InitLOD("Crate", "Crate2", "Crate3");
+
 
 	// Add the pointer to this new entity to the Scene Graph
 	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
