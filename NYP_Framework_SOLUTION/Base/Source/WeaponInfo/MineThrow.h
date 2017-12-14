@@ -2,12 +2,12 @@
 
 #include "WeaponInfo.h"
 
-class CMineThrow :
+class CC4Throw :
 	public CWeaponInfo
 {
 public:
-	CMineThrow();
-	virtual ~CMineThrow();
+	CC4Throw();
+	virtual ~CC4Throw();
 
 	// Initialise this instance to default values
 	void Init(void);

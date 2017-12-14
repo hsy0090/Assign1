@@ -38,6 +38,7 @@ CPlayerInfo::CPlayerInfo(void)
 	, m_iscore(0)
 	, GenericEntity(NULL)
 	, m_bmove(true)
+	, m_bgrid(false)
 {
 }
 
@@ -106,7 +107,7 @@ void CPlayerInfo::Init(void)
 	weaponPManager[2]->Init();
 
 	weaponSManager = new CWeaponInfo*[m_iNumOfSWeapon];
-	weaponSManager[0] = new CMineThrow();
+	weaponSManager[0] = new CC4Throw();
 	weaponSManager[0]->Init();
 
 	weaponSManager[1] = new CGrenadeThrow();
@@ -632,6 +633,11 @@ void CPlayerInfo::Update(double dt)
 		UpdateFreeFall(dt);
 	}
 
+	if (KeyboardController::GetInstance()->IsKeyUp('Z') && !GetGrid())
+	{
+		SetGrid(true);
+	}
+
 	// If a camera is attached to this playerInfo class, then update it
 	if (attachedCamera)
 	{
@@ -640,7 +646,7 @@ void CPlayerInfo::Update(double dt)
 		attachedCamera->SetCameraUp(up);
 	}
 
-	this->SetPAABB(Vector3(5, 5, 5), GetPos());
+	this->SetPAAABB(Vector3(5, 5, 5), GetPos());
 }
 
 // Constrain the position within the borders
@@ -748,4 +754,14 @@ int CPlayerInfo::GetSWeapon(void) const
 void CPlayerInfo::Setmove(bool _move)
 {
 	m_bmove = _move;
+}
+
+bool CPlayerInfo::GetGrid()
+{
+	return m_bgrid;
+}
+
+void CPlayerInfo::SetGrid(bool c)
+{
+	m_bgrid = c;
 }

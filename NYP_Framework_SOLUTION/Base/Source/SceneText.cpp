@@ -169,8 +169,6 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateOBJ("Cottage", "OBJ//COTTAGE.obj");
 	MeshBuilder::GetInstance()->GetMesh("Cottage")->textureID = LoadTGA("Image//COTTAGE.tga");
 
-
-
 	//LOD model Crates
 	//most detailed
 	MeshBuilder::GetInstance()->GenerateOBJ("Crate", "OBJ//Crate.obj");
@@ -252,10 +250,6 @@ void SceneText::Init()
 	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
 	CWaypointManager::GetInstance()->PrintSelf();
 
-	// Create a CEnemy instance
-	theEnemy = new CEnemy();
-	theEnemy->Init();
-
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -269,7 +263,70 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
+
+	// Create a CEnemy instance
+	theEnemy = new CEnemy();
+	theEnemy->Init(0);
+	theEnemy->SetPos(Vector3(100, 0, 0));
+	theEnemy->SetScale(Vector3(7, 7, 7));
+	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
 	theEnemy->SetTerrain(groundEntity);
+	CSceneNode* headNode = CSceneGraph::GetInstance()->AddNode(theEnemy);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		float x = 0;
+		float z = 0;
+
+		if (i < 4)
+		{
+			x = theEnemy->position.x -15.0f + (i * 15.0f);
+
+			parts = new CEnemy();
+			parts->Init(1);
+			parts->SetPos(Vector3(x, 0, 15.0f));
+			parts->SetScale(Vector3(5, 5, 5));
+			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+			parts->SetTerrain(groundEntity);
+			parts->SetTarget(theEnemy->GetTarget());
+			CSceneNode* part = headNode->AddChild(parts);
+			parts = NULL;
+
+			parts = new CEnemy();
+			parts->Init(1);
+			parts->SetPos(Vector3(x, 0, -15.0f));
+			parts->SetScale(Vector3(5, 5, 5));
+			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+			parts->SetTerrain(groundEntity);
+			parts->SetTarget(theEnemy->GetTarget());
+			CSceneNode* part2 = headNode->AddChild(parts);
+			parts = NULL;
+		}
+		else
+		{
+			parts = new CEnemy();
+			parts->Init(1);
+			parts->SetPos(Vector3(x, 0, 0));
+			parts->SetScale(Vector3(5, 5, 5));
+			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+			parts->SetTerrain(groundEntity);
+			parts->SetTarget(theEnemy->GetTarget());
+			CSceneNode* part3 = headNode->AddChild(parts);
+			parts = NULL;
+
+			parts = new CEnemy();
+			parts->Init(1);
+			parts->SetPos(Vector3(x, 0, 0));
+			parts->SetScale(Vector3(5, 5, 5));
+			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+			parts->SetTerrain(groundEntity);
+			parts->SetTarget(theEnemy->GetTarget());
+			CSceneNode* part4 = headNode->AddChild(parts);
+			parts = NULL;
+		}
+	}
+
+	theEnemy = NULL;
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;

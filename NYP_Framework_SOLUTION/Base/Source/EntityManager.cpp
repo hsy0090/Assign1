@@ -4,6 +4,7 @@
 #include "Projectile/Laser.h"
 #include "SceneGraph\SceneGraph.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "Enemy\Enemy.h"
 
 #include <iostream>
 #include <typeinfo>
@@ -64,8 +65,11 @@ void EntityManager::Render()
 	CSceneGraph::GetInstance()->Render();
 
 	// Render the Spatial Partition
-	/*if (theSpatialPartition)
-		theSpatialPartition->Render();*/
+	if (CPlayerInfo::GetInstance()->GetGrid())
+	{
+		if (theSpatialPartition)
+			theSpatialPartition->Render();
+	}
 }
 
 // Render the UI entities
@@ -456,13 +460,13 @@ bool EntityManager::CheckForCollision(void)
 					{
 						if (CheckAABBCollision(thisEntity, thatEntity))
 						{
-							if (typeid(*thisEntity) != typeid(CPlayerInfo) && typeid(*thatEntity) != typeid(CPlayerInfo))
+							if (typeid(*thisEntity) != typeid(CPlayerInfo) && typeid(*thatEntity) != typeid(CPlayerInfo) && !(typeid(*thisEntity) == typeid(CEnemy) && typeid(*thatEntity) == typeid(CEnemy)))
 							{
 								CPlayerInfo::GetInstance()->AddScore(10);
 								thatEntity->SetIsDone(true);
 								thisEntity->SetIsDone(true);
 
-								// Remove from Scene Graph
+								// Remove from Scene Graphs
 								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
 								{
 									cout << "*** This Entity removed ***" << endl;

@@ -14,7 +14,7 @@
 #include <iostream>
 using namespace std;
 
-CMine::CMine(void)
+CC4::CC4(void)
 	: CProjectile(NULL)
 	, m_fGravity(-10.0f)
 	, m_fElapsedTime(0.0f)
@@ -22,7 +22,7 @@ CMine::CMine(void)
 {
 }
 
-CMine::CMine(Mesh* _modelMesh)
+CC4::CC4(Mesh* _modelMesh)
 	: CProjectile(_modelMesh)
 	, m_fGravity(-10.0f)
 	, m_fElapsedTime(0.0f)
@@ -30,7 +30,7 @@ CMine::CMine(Mesh* _modelMesh)
 {
 }
 
-CMine::~CMine(void)
+CC4::~CC4(void)
 {
 	m_pTerrain = NULL; // Don't delete this as the terrain is deleted in CPlayerInfo
 	modelMesh = NULL;
@@ -50,7 +50,7 @@ CMine::~CMine(void)
 }
 
 // Update the status of this projectile
-void CMine::Update(double dt)
+void CC4::Update(double dt)
 {
 	if (m_bStatus == false)
 		return;
@@ -79,13 +79,13 @@ void CMine::Update(double dt)
 }
 
 // Set the terrain for the player info
-void CMine::SetTerrain(GroundEntity* m_pTerrain)
+void CC4::SetTerrain(GroundEntity* m_pTerrain)
 {
 	this->m_pTerrain = m_pTerrain;
 }
 
 // Create a projectile and add it into EntityManager
-CMine* Create::Mine(const std::string& _meshName,
+CC4* Create::Mine(const std::string& _meshName,
 	const Vector3& _position,
 	const Vector3& _direction,
 	const float m_fLifetime,
@@ -96,7 +96,7 @@ CMine* Create::Mine(const std::string& _meshName,
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	CMine* result = new CMine(modelMesh);
+	CC4* result = new CC4(modelMesh);
 	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
 	result->SetStatus(true);
 	result->SetCollider(true);

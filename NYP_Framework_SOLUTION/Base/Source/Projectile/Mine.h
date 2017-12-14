@@ -8,7 +8,7 @@
 class Mesh;
 class CPlayerInfo;
 
-class CMine : public CProjectile
+class CC4 : public CProjectile
 {
 protected:
 	float m_fGravity;
@@ -16,9 +16,9 @@ protected:
 	GroundEntity* m_pTerrain;
 
 public:
-	CMine(void);
-	CMine(Mesh* _modelMesh);
-	~CMine(void);
+	CC4(void);
+	CC4(Mesh* _modelMesh);
+	~CC4(void);
 
 	// Update the status of this projectile
 	void Update(double dt = 0.0333f);
@@ -29,7 +29,7 @@ public:
 
 namespace Create
 {
-	CMine* Mine(const std::string& _meshName,
+	CC4* Mine(const std::string& _meshName,
 		const Vector3& _position,
 		const Vector3& _direction,
 		const float m_fLifetime,

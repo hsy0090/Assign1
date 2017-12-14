@@ -71,6 +71,60 @@ void CEnemy::Init(void)
 
 }
 
+void CEnemy::Init(int type)
+{
+	// Set the default values
+	defaultPosition.Set(0, 0, 10);
+	defaultTarget.Set(0, 0, 0);
+	defaultUp.Set(0, 1, 0);
+
+	// Set up the waypoints
+	listOfWaypoints.push_back(0);
+	listOfWaypoints.push_back(1);
+	listOfWaypoints.push_back(2);
+
+	m_iWayPointIndex = 0;
+
+	// Set the current values
+	position.Set(10.0f, 0.0f, 0.0f);
+	//target.Set(10.0f, 0.0f, 450.0f);
+	CWaypoint* nextWaypoint = GetNextWaypoint();
+	if (nextWaypoint)
+		target = nextWaypoint->GetPosition();
+	else
+		target = Vector3(0, 0, 0);
+	cout << "Next target: " << target << endl;
+	up.Set(0.0f, 1.0f, 0.0f);
+
+	// Set Boundary
+	maxBoundary.Set(1, 1, 1);
+	minBoundary.Set(-1, -1, -1);
+
+	// Set speed
+	m_dSpeed = 10.0;
+
+	// Initialise the LOD meshes
+	switch (type)
+	{
+	case 0:
+		// core
+		InitLOD("sphere", "cube", "cubeSG");
+		break;
+	case 1:
+		// shields
+		InitLOD("cubeSG", "sphere", "cube");
+	}
+
+	// Initialise the Collider
+	this->SetCollider(true);
+	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
+	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
+	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
+
+	// Add to EntityManager
+	EntityManager::GetInstance()->AddEntity(this, true);
+}
+
 // Reset this player instance to default
 void CEnemy::Reset(void)
 {
@@ -155,13 +209,13 @@ void CEnemy::Update(double dt)
 	switch (state)
 	{
 	case IDLE:
-		Idle(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		Idle(CPlayerInfo::GetInstance()->GetMaxAAABB(), CPlayerInfo::GetInstance()->GetMinAAABB(), dt);
 		break;
 	case SEARCH:
-		Search(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		Search(CPlayerInfo::GetInstance()->GetMaxAAABB(), CPlayerInfo::GetInstance()->GetMinAAABB(), dt);
 		break;
 	case ATTACK:
-		Attack(CPlayerInfo::GetInstance()->GetMaxAABB(), CPlayerInfo::GetInstance()->GetMinAABB(), dt);
+		Attack(CPlayerInfo::GetInstance()->GetMaxAAABB(), CPlayerInfo::GetInstance()->GetMinAAABB(), dt);
 		break;
 	default:
 		break;
@@ -287,7 +341,7 @@ void CEnemy::Attack(Vector3 playermax, Vector3 playermin, double dt)
 	Vector3 viewVector = (target - position).Normalized();
 
 
-	bool collision = EntityManager::GetInstance()->CheckOverlap(this->GetMinAABB(), this->GetMaxAABB(), playermin, playermax);
+	bool collision = EntityManager::GetInstance()->CheckOverlap(this->GetMinAAABB(), this->GetMaxAAABB(), playermin, playermax);
 
 	if (EntityManager::GetInstance()->CheckOverlap(this->GetMinAAABB(), this->GetMaxAAABB(), playermin, playermax))
 	{

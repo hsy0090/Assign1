@@ -46,6 +46,7 @@ public:
 	virtual ~CEnemy();
 
 	void Init(void);
+	void Init(int type);
 	// Reset this player instance to default
 	void Reset(void);
 

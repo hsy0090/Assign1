@@ -123,6 +123,10 @@ public:
 	float m_fcurrent_yaw;
 	Vector3 target, up;
 
+	//Grid
+	bool GetGrid();
+	void SetGrid(bool c);
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 maxBoundary, minBoundary;
@@ -160,4 +164,7 @@ private:
 
 	//Collision
 	bool m_bmove;
+
+	//Grid
+	bool m_bgrid;
 };

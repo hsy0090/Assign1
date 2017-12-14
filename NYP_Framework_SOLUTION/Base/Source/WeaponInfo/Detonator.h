@@ -17,5 +17,5 @@ public:
 
 	void Discharge();
 
-	std::vector <CMine*> Active;
+	std::vector <CC4*> Active;
 };

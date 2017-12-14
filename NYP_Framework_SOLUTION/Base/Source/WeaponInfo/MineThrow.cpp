@@ -1,17 +1,17 @@
 #include "MineThrow.h"
 #include "../Projectile/Mine.h"
 
-CMineThrow::CMineThrow()
+CC4Throw::CC4Throw()
 {
 }
 
 
-CMineThrow::~CMineThrow()
+CC4Throw::~CC4Throw()
 {
 }
 
 // Initialise this instance to default values
-void CMineThrow::Init(void)
+void CC4Throw::Init(void)
 {
 	// Call the parent's Init method
 	CWeaponInfo::Init();
@@ -34,7 +34,7 @@ void CMineThrow::Init(void)
 }
 
 // Discharge this weapon
-void CMineThrow::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _source)
+void CC4Throw::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _source)
 {
 	if (bFire)
 	{
