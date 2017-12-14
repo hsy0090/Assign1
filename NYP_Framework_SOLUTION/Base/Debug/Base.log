@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿  SceneText.cpp
 Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\New\Assign1\NYP_Framework_SOLUTION\Debug\Base.exe
   Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\New\Assign1\NYP_Framework_SOLUTION\Debug\Base.pdb (Full PDB)
+=======
+﻿
+>>>>>>> 8f814f3e98d1eb0b44fdfa1d447e16ed336e1d60

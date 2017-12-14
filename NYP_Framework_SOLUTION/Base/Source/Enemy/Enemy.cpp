@@ -71,7 +71,7 @@ void CEnemy::Init(void)
 
 }
 
-void CEnemy::Init(int type)
+void CEnemy::Init1(int type)
 {
 	// Set the default values
 	defaultPosition.Set(0, 0, 10);
