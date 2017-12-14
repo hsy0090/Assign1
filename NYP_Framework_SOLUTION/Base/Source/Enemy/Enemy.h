@@ -26,6 +26,7 @@ protected:
 
 	Vector3 goal;
 	States state;
+	int m_itype;
 
 	CCollider Searchrange;
 	CCollider Attackrange;

@@ -267,66 +267,94 @@ void SceneText::Init()
 	// Create a CEnemy instance
 	theEnemy = new CEnemy();
 	theEnemy->Init(0);
-	theEnemy->SetPos(Vector3(100, 0, 0));
+	theEnemy->SetPos(Vector3(100, 10, 0));
 	theEnemy->SetScale(Vector3(7, 7, 7));
 	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
 	theEnemy->SetTerrain(groundEntity);
 	CSceneNode* headNode = CSceneGraph::GetInstance()->AddNode(theEnemy);
 
-	for (int i = 0; i < 4; ++i)
-	{
-		float x = 0;
-		float z = 0;
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy->position.x, theEnemy->position.y - 5.f, theEnemy->position.z - 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy->GetTarget());
+	CSceneNode* part = headNode->AddChild(parts);
+	parts = NULL;
 
-		if (i < 4)
-		{
-			x = theEnemy->position.x -15.0f + (i * 15.0f);
-
-			parts = new CEnemy();
-			parts->Init(1);
-			parts->SetPos(Vector3(x, 0, 15.0f));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part = headNode->AddChild(parts);
-			parts = NULL;
-
-			parts = new CEnemy();
-			parts->Init(1);
-			parts->SetPos(Vector3(x, 0, -15.0f));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part2 = headNode->AddChild(parts);
-			parts = NULL;
-		}
-		else
-		{
-			parts = new CEnemy();
-			parts->Init(1);
-			parts->SetPos(Vector3(x, 0, 0));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part3 = headNode->AddChild(parts);
-			parts = NULL;
-
-			parts = new CEnemy();
-			parts->Init(1);
-			parts->SetPos(Vector3(x, 0, 0));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part4 = headNode->AddChild(parts);
-			parts = NULL;
-		}
-	}
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy->position.x + 3.f, theEnemy->position.y - 5.f, theEnemy->position.z + 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy->GetTarget());
+	CSceneNode* part1 = headNode->AddChild(parts);
+	parts = NULL;
 
 	theEnemy = NULL;
+
+
+	theEnemy1 = new CEnemy();
+	theEnemy1->Init(0);
+	theEnemy1->SetPos(Vector3(10, 10, 100));
+	theEnemy1->SetScale(Vector3(7, 7, 7));
+	theEnemy1->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
+	theEnemy1->SetTerrain(groundEntity);
+	CSceneNode* headNode1 = CSceneGraph::GetInstance()->AddNode(theEnemy1);
+
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy1->position.x + 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy1->GetTarget());
+	CSceneNode* part2 = headNode1->AddChild(parts);
+	parts = NULL;
+
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy1->position.x - 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy1->GetTarget());
+	CSceneNode* part3 = headNode1->AddChild(parts);
+	parts = NULL;
+
+	theEnemy2 = NULL;
+
+	theEnemy2 = new CEnemy();
+	theEnemy2->Init(0);
+	theEnemy2->SetPos(Vector3(200, 10, 100));
+	theEnemy2->SetScale(Vector3(7, 7, 7));
+	theEnemy2->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
+	theEnemy2->SetTerrain(groundEntity);
+	CSceneNode* headNode2 = CSceneGraph::GetInstance()->AddNode(theEnemy2);
+
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy2->position.x, theEnemy2->position.y - 5.f, theEnemy2->position.z + 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy2->GetTarget());
+	CSceneNode* part4 = headNode2->AddChild(parts);
+	parts = NULL;
+
+	parts = new CEnemy();
+	parts->Init(1);
+	parts->SetPos(Vector3(theEnemy2->position.x + 3.f, theEnemy2->position.y - 5.f, theEnemy2->position.z + 15.0f));
+	parts->SetScale(Vector3(5, 5, 5));
+	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts->SetTerrain(groundEntity);
+	parts->SetTarget(theEnemy2->GetTarget());
+	CSceneNode* part5 = headNode2->AddChild(parts);
+	parts = NULL;
+
+	theEnemy2 = NULL;
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;

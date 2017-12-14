@@ -633,8 +633,15 @@ void CPlayerInfo::Update(double dt)
 		UpdateFreeFall(dt);
 	}
 
-	if (KeyboardController::GetInstance()->IsKeyUp('Z') && !GetGrid())
+	static bool bState = false;
+	if (!bState && KeyboardController::GetInstance()->IsKeyUp('Z'))
 	{
+		bState = true;
+		SetGrid(false);
+	}
+	else if (bState && !KeyboardController::GetInstance()->IsKeyUp('Z'))
+	{
+		bState = false;
 		SetGrid(true);
 	}
 

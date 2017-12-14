@@ -268,8 +268,8 @@ void CEnemy::Constrain(void)
 
 	// if the y position is not equal to terrain height at that position, 
 	// then update y position to the terrain height
-	if (position.y != m_pTerrain->GetTerrainHeight(position))
-		position.y = m_pTerrain->GetTerrainHeight(position);
+	/*if (position.y != m_pTerrain->GetTerrainHeight(position))
+		position.y = m_pTerrain->GetTerrainHeight(position);*/
 }
 
 // Render
