@@ -144,9 +144,9 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("cone")->material.kDiffuse.Set(0.99f, 0.99f, 0.99f);
 	MeshBuilder::GetInstance()->GetMesh("cone")->material.kSpecular.Set(0.f, 0.f, 0.f);
 	MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
-	MeshBuilder::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
+	MeshBuilder::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//mud1.tga");
 	MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);
-	MeshBuilder::GetInstance()->GetMesh("GEO_GRASS_LIGHTGREEN")->textureID = LoadTGA("Image//grass_lightgreen.tga");
+	MeshBuilder::GetInstance()->GetMesh("GEO_GRASS_LIGHTGREEN")->textureID = LoadTGA("Image//mud2.tga");
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.0f, 0.64f, 0.0f), 1.0f);
 	MeshBuilder::GetInstance()->GenerateQuad("SKYBOX_FRONT", Color(1, 1, 1), 1.f);
 	MeshBuilder::GetInstance()->GenerateQuad("SKYBOX_BACK", Color(1, 1, 1), 1.f);
@@ -168,6 +168,19 @@ void SceneText::Init()
 	//assign models
 	MeshBuilder::GetInstance()->GenerateOBJ("Cottage", "OBJ//COTTAGE.obj");
 	MeshBuilder::GetInstance()->GetMesh("Cottage")->textureID = LoadTGA("Image//COTTAGE.tga");
+
+
+	//tank
+	//body
+	MeshBuilder::GetInstance()->GenerateOBJ("TankBody", "OBJ//TankBody.obj");
+	MeshBuilder::GetInstance()->GetMesh("TankBody")->textureID = LoadTGA("Image//TankPaint2.tga");
+	//turret
+	MeshBuilder::GetInstance()->GenerateOBJ("TankTurret", "OBJ//TankTurret.obj");
+	MeshBuilder::GetInstance()->GetMesh("TankTurret")->textureID = LoadTGA("Image//TankPaint2.tga");
+	//gun
+	MeshBuilder::GetInstance()->GenerateOBJ("TankGun", "OBJ//TankGun.obj");
+	MeshBuilder::GetInstance()->GetMesh("TankGun")->textureID = LoadTGA("Image//TankPaint2.tga");
+
 
 	//LOD model Crates
 	//most detailed
@@ -224,24 +237,30 @@ void SceneText::Init()
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
 	}
 	
-	GenericEntity* baseCube = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f));
+	GenericEntity* baseCube = Create::Asset("TankBody", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	baseNode->ApplyTranslate(0.0f, -10.0f, -300.0f);
 
 	CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	baseMtx->SetSteps(-60, 60);
+	baseMtx->ApplyUpdate( 0.0f, 0.0f, 0.5f);
+	baseMtx->SetSteps(-280, 90);
 	baseNode->SetUpdateTransformation(baseMtx);
 
-	GenericEntity* childCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
-	CSceneNode* childNode = baseNode->AddChild(childCube);
-	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
 
-	GenericEntity* grandchildCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
+	GenericEntity* childCube = Create::Asset("TankTurret", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
+	CSceneNode* childNode = baseNode->AddChild(childCube);
+	childNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
+	CUpdateTransformation* aTurnMtx = new CUpdateTransformation();
+	aTurnMtx->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
+	aTurnMtx->SetSteps(-90, 90);
+	childNode->SetUpdateTransformation(aTurnMtx);
+
+	GenericEntity* grandchildCube = Create::Asset("TankGun", Vector3(0.0f, 0.0f, 0.f), Vector3(2.0f, 2.0f, 2.0f));
 	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	grandchildNode->ApplyTranslate(0.0f, 0.0f, 1.0f);
+	grandchildNode->ApplyTranslate(0.0f, 0.0f, 0.f);
 	CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
-	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	aRotateMtx->SetSteps(-120, 60);
+	aRotateMtx->ApplyUpdate(0.1f, 1.0f, 0.0f, 0.0f);
+	aRotateMtx->SetSteps(-15, 10);
 	grandchildNode->SetUpdateTransformation(aRotateMtx);
 	
 	// Create a Waypoint inside WaypointManager
@@ -266,7 +285,7 @@ void SceneText::Init()
 
 	// Create a CEnemy instance
 	theEnemy = new CEnemy();
-	theEnemy->Init(0);
+	theEnemy->Init1(0);
 	theEnemy->SetPos(Vector3(100, 0, 0));
 	theEnemy->SetScale(Vector3(7, 7, 7));
 	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
@@ -283,7 +302,7 @@ void SceneText::Init()
 			x = theEnemy->position.x -15.0f + (i * 15.0f);
 
 			parts = new CEnemy();
-			parts->Init(1);
+			parts->Init1(1);
 			parts->SetPos(Vector3(x, 0, 15.0f));
 			parts->SetScale(Vector3(5, 5, 5));
 			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -293,7 +312,7 @@ void SceneText::Init()
 			parts = NULL;
 
 			parts = new CEnemy();
-			parts->Init(1);
+			parts->Init1(1);
 			parts->SetPos(Vector3(x, 0, -15.0f));
 			parts->SetScale(Vector3(5, 5, 5));
 			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -305,7 +324,7 @@ void SceneText::Init()
 		else
 		{
 			parts = new CEnemy();
-			parts->Init(1);
+			parts->Init1(1);
 			parts->SetPos(Vector3(x, 0, 0));
 			parts->SetScale(Vector3(5, 5, 5));
 			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -315,7 +334,7 @@ void SceneText::Init()
 			parts = NULL;
 
 			parts = new CEnemy();
-			parts->Init(1);
+			parts->Init1(1);
 			parts->SetPos(Vector3(x, 0, 0));
 			parts->SetScale(Vector3(5, 5, 5));
 			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));

@@ -1,6 +1,1 @@
-﻿  Collider.cpp
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Common.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\New\Assign1\NYP_Framework_SOLUTION\Debug\Common.lib
+﻿
