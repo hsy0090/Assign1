@@ -1,186 +1,16 @@
-<<<<<<< HEAD
-﻿  SceneText.cpp
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(288): error C2059: syntax error: '<<'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(291): error C2059: syntax error: '=='
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(294): error C2059: syntax error: '>>'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(300): error C2059: syntax error: '<<'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(302): error C2660: 'CEnemy::Init': function does not take 1 arguments
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(312): error C2660: 'CEnemy::Init': function does not take 1 arguments
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(320): error C2059: syntax error: '=='
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(321): error C2065: 'i': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(321): error C2059: syntax error: ')'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(323): error C2062: type 'float' unexpected
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(326): error C2065: 'i': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(328): error C2065: 'x': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(328): error C2065: 'i': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(332): error C2065: 'x': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(342): error C2065: 'x': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(354): error C2065: 'x': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(364): error C2065: 'x': undeclared identifier
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(373): error C2059: syntax error: '>>'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): error C2440: 'initializing': cannot convert from 'CEnemy *' to 'int'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: There is no context in which this conversion is possible
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(379): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(379): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(379): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(379): error C2086: 'int theEnemy1': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: see declaration of 'theEnemy1'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(379): error C2146: syntax error: missing ';' before identifier 'Init'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(380): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(380): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(380): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(380): error C2086: 'int theEnemy1': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: see declaration of 'theEnemy1'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(380): error C2146: syntax error: missing ';' before identifier 'SetPos'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(381): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(381): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(381): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(381): error C2086: 'int theEnemy1': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: see declaration of 'theEnemy1'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(381): error C2146: syntax error: missing ';' before identifier 'SetScale'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(382): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(382): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(382): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(382): error C2086: 'int theEnemy1': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: see declaration of 'theEnemy1'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(382): error C2146: syntax error: missing ';' before identifier 'SetAABB'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(383): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(383): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(383): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(383): error C2086: 'int theEnemy1': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(378): note: see declaration of 'theEnemy1'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(383): error C2146: syntax error: missing ';' before identifier 'SetTerrain'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(384): error C2664: 'CSceneNode *CSceneGraph::AddNode(EntityBase *)': cannot convert argument 1 from 'int' to 'EntityBase *'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(384): note: Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): error C2440: 'initializing': cannot convert from 'CEnemy *' to 'int'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: There is no context in which this conversion is possible
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(387): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(387): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(387): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(387): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(387): error C2146: syntax error: missing ';' before identifier 'Init'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(388): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(388): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(388): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(388): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(388): error C2146: syntax error: missing ';' before identifier 'SetPos'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(389): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(389): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(389): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(389): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(389): error C2146: syntax error: missing ';' before identifier 'SetScale'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(390): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(390): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(390): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(390): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(390): error C2146: syntax error: missing ';' before identifier 'SetAABB'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(391): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(391): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(391): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(391): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(391): error C2146: syntax error: missing ';' before identifier 'SetTerrain'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(392): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(392): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(392): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(392): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(392): error C2146: syntax error: missing ';' before identifier 'SetTarget'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(393): error C2664: 'CSceneNode *CSceneNode::AddChild(EntityBase *)': cannot convert argument 1 from 'int' to 'EntityBase *'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(393): note: Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(394): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(394): error C2374: 'parts': redefinition; multiple initialization
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(396): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(396): error C2374: 'parts': redefinition; multiple initialization
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(396): error C2440: 'initializing': cannot convert from 'CEnemy *' to 'int'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(396): note: There is no context in which this conversion is possible
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(397): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(397): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(397): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(397): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(397): error C2146: syntax error: missing ';' before identifier 'Init'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(398): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(398): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(398): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(398): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(398): error C2146: syntax error: missing ';' before identifier 'SetPos'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(399): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(399): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(399): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(399): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(399): error C2146: syntax error: missing ';' before identifier 'SetScale'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(400): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(400): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(400): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(400): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(400): error C2146: syntax error: missing ';' before identifier 'SetAABB'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(401): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(401): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(401): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(401): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(401): error C2146: syntax error: missing ';' before identifier 'SetTerrain'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(402): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(402): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(402): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(402): error C2086: 'int parts': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(402): error C2146: syntax error: missing ';' before identifier 'SetTarget'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(404): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(404): error C2374: 'parts': redefinition; multiple initialization
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(386): note: see declaration of 'parts'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(406): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(408): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(408): error C2374: 'theEnemy2': redefinition; multiple initialization
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(406): note: see declaration of 'theEnemy2'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(408): error C2440: 'initializing': cannot convert from 'CEnemy *' to 'int'
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(408): note: There is no context in which this conversion is possible
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(409): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(409): error C3613: missing return type after '->' ('int' assumed)
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(409): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(409): error C2086: 'int theEnemy2': redefinition
-  c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(406): note: see declaration of 'theEnemy2'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(409): error C2146: syntax error: missing ';' before identifier 'Init'
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(410): error C3927: '->': trailing return type is not allowed after a non-function declarator
-c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(410): fatal error C1003: error count exceeds 100; stopping compilation
-  Enemy.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  WeaponInfo.cpp
-=======
 ﻿  WeaponInfo.cpp
->>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   Pistol.cpp
   MineThrow.cpp
   LaserBlaster.cpp
   GrenadeThrow.cpp
   Detonator.cpp
-<<<<<<< HEAD
-=======
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\weaponinfo\detonator.cpp(43): warning C4018: '<': signed/unsigned mismatch
->>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   AR.cpp
   WaypointManager.cpp
   Waypoint.cpp
   TextEntity.cpp
   SpriteEntity.cpp
   SpatialPartition.cpp
-<<<<<<< HEAD
-  Grid.cpp
-  SkyBoxEntity.cpp
-=======
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(154): warning C4018: '<': signed/unsigned mismatch
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(178): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
@@ -194,18 +24,11 @@ c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpar
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(203): warning C4018: '<': signed/unsigned mismatch
   SkyBoxEntity.cpp
   SceneText.cpp
->>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   UpdateTransformation.cpp
   Transform.cpp
   SceneNode.cpp
   SceneGraph.cpp
   Projectile.cpp
-<<<<<<< HEAD
-  Mine.cpp
-  Laser.cpp
-  Grenade.cpp
-  PlayerInfo.cpp
-=======
   Generating Code...
   Compiling...
   Mine.cpp
@@ -221,7 +44,6 @@ c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(708): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(713): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(723): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
->>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   OBJMesh.cpp
   main.cpp
   Light.cpp
@@ -230,13 +52,9 @@ c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo
   GenericEntity.cpp
   FPSCamera.cpp
   EntityManager.cpp
-<<<<<<< HEAD
-  Application.cpp
-=======
   Enemy.cpp
   Application.cpp
   Generating Code...
 Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Base.vcxproj -> C:\Users\Stanley\Documents\Assign1\NYP_Framework_SOLUTION\Debug\Base.exe
->>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
