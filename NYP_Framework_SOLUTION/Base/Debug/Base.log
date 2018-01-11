@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  SceneText.cpp
 c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(288): error C2059: syntax error: '<<'
 c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\base\source\scenetext.cpp(291): error C2059: syntax error: '=='
@@ -158,28 +159,69 @@ c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\ne
   Generating Code...
   Skipping... (no relevant changes detected)
   WeaponInfo.cpp
+=======
+﻿  WeaponInfo.cpp
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   Pistol.cpp
   MineThrow.cpp
   LaserBlaster.cpp
   GrenadeThrow.cpp
   Detonator.cpp
+<<<<<<< HEAD
+=======
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\weaponinfo\detonator.cpp(43): warning C4018: '<': signed/unsigned mismatch
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   AR.cpp
   WaypointManager.cpp
   Waypoint.cpp
   TextEntity.cpp
   SpriteEntity.cpp
   SpatialPartition.cpp
+<<<<<<< HEAD
   Grid.cpp
   SkyBoxEntity.cpp
+=======
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(154): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(178): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(180): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Grid.cpp
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(42): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(43): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(123): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(136): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(175): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\spatialpartition\grid.cpp(203): warning C4018: '<': signed/unsigned mismatch
+  SkyBoxEntity.cpp
+  SceneText.cpp
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   UpdateTransformation.cpp
   Transform.cpp
   SceneNode.cpp
   SceneGraph.cpp
   Projectile.cpp
+<<<<<<< HEAD
   Mine.cpp
   Laser.cpp
   Grenade.cpp
   PlayerInfo.cpp
+=======
+  Generating Code...
+  Compiling...
+  Mine.cpp
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\mine.cpp(41): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\mine.cpp(62): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\mine.cpp(66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Laser.cpp
+  Grenade.cpp
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\grenade.cpp(54): warning C4018: '<': signed/unsigned mismatch
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\grenade.cpp(71): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\projectile\grenade.cpp(75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PlayerInfo.cpp
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(708): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(713): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(723): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
   OBJMesh.cpp
   main.cpp
   Light.cpp
@@ -188,4 +230,13 @@ c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\ne
   GenericEntity.cpp
   FPSCamera.cpp
   EntityManager.cpp
+<<<<<<< HEAD
   Application.cpp
+=======
+  Enemy.cpp
+  Application.cpp
+  Generating Code...
+Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Base.vcxproj -> C:\Users\Stanley\Documents\Assign1\NYP_Framework_SOLUTION\Debug\Base.exe
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547

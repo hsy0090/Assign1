@@ -360,7 +360,7 @@ void CPlayerInfo::Update(double dt)
 					{
 						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
 						{
-							m_fhealth--;
+							//m_fhealth--;
 							move = false;
 
 						}
@@ -392,7 +392,7 @@ void CPlayerInfo::Update(double dt)
 					{
 						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
 						{
-							m_fhealth--;
+							//m_fhealth--;
 							move1 = false;
 						}
 					}
@@ -422,7 +422,7 @@ void CPlayerInfo::Update(double dt)
 					{
 						if (EntityManager::GetInstance()->CheckAABBCollision(this, thatEntity))
 						{
-							m_fhealth--;
+							//m_fhealth--;
 							move1 = false;
 						}
 					}

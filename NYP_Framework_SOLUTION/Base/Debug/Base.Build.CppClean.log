@@ -5,7 +5,6 @@ c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\scenegraph.
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\scenenode.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\transform.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\updatetransformation.obj
-c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\scenetext.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\skyboxentity.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\grid.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\spatialpartition.obj
@@ -34,6 +33,7 @@ c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\playerinfo.
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\grenade.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\laser.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\mine.obj
+c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\scenetext.obj
 c:\users\stanley\documents\assign1\nyp_framework_solution\debug\base.exe
 c:\users\stanley\documents\assign1\nyp_framework_solution\debug\base.pdb
 c:\users\stanley\documents\assign1\nyp_framework_solution\base\debug\base.tlog\cl.command.1.tlog

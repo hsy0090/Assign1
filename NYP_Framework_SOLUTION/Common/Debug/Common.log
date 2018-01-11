@@ -21,6 +21,7 @@
   Generating Code...
   Compiling...
   Collider.cpp
+<<<<<<< HEAD
 c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\new\assign1\nyp_framework_solution\common\source\collider\collider.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
@@ -28,3 +29,12 @@ c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\ne
   CameraBase.cpp
   Generating Code...
   Common.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\New\Assign1\NYP_Framework_SOLUTION\Debug\Common.lib
+=======
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  CameraBase.cpp
+  Generating Code...
+  Common.vcxproj -> C:\Users\Stanley\Documents\Assign1\NYP_Framework_SOLUTION\Debug\Common.lib
+>>>>>>> ce7f176a5bee364efcd7b58d3b723c640c96d547
