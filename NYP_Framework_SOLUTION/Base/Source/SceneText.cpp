@@ -212,17 +212,17 @@ void SceneText::Init()
 	//house
 	GenericEntity* cottage = Create::Entity("Cottage", Vector3(-100.0f, -10.0f, 0.0f), Vector3(15.0f, 15.0f, 15.0f));
 	cottage->SetCollider(true);
-	cottage->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	cottage->SetAABB(Vector3(30.f, 30.f, 30.f), Vector3(-30.f, -30.f, -30.f));
 
 	//lod crate
 	GenericEntity* aCube = Create::Entity("Crate", Vector3(-20.0f, -6.0f, -20.0f), Vector3(0.2f, 0.2f, 0.2f));
 	aCube->SetCollider(true);
-	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	aCube->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	aCube->InitLOD("Crate", "Crate2", "Crate3");
 
 
 	// Add the pointer to this new entity to the Scene Graph
-	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
+	/*CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
 	if (theNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
@@ -235,7 +235,7 @@ void SceneText::Init()
 	if (anotherNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}
+	}*/
 	
 	GenericEntity* baseCube = Create::Asset("TankBody", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
@@ -285,21 +285,17 @@ void SceneText::Init()
 
 	// Create a CEnemy instance
 	theEnemy = new CEnemy();
-<<<<<<< HEAD
-	theEnemy->Init(0);
+	theEnemy->Init1(0);
 	theEnemy->SetPos(Vector3(100, 10, 0));
-=======
 	theEnemy->Init1(0);
 	theEnemy->SetPos(Vector3(100, 0, 0));
->>>>>>> 8f814f3e98d1eb0b44fdfa1d447e16ed336e1d60
 	theEnemy->SetScale(Vector3(7, 7, 7));
 	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
 	theEnemy->SetTerrain(groundEntity);
 	CSceneNode* headNode = CSceneGraph::GetInstance()->AddNode(theEnemy);
 
-<<<<<<< HEAD
 	parts = new CEnemy();
-	parts->Init(1);
+	parts->Init1(1);
 	parts->SetPos(Vector3(theEnemy->position.x, theEnemy->position.y - 5.f, theEnemy->position.z - 15.0f));
 	parts->SetScale(Vector3(5, 5, 5));
 	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -307,76 +303,10 @@ void SceneText::Init()
 	parts->SetTarget(theEnemy->GetTarget());
 	CSceneNode* part = headNode->AddChild(parts);
 	parts = NULL;
-
-	parts = new CEnemy();
-	parts->Init(1);
-	parts->SetPos(Vector3(theEnemy->position.x + 3.f, theEnemy->position.y - 5.f, theEnemy->position.z + 15.0f));
-	parts->SetScale(Vector3(5, 5, 5));
-	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-	parts->SetTerrain(groundEntity);
-	parts->SetTarget(theEnemy->GetTarget());
-	CSceneNode* part1 = headNode->AddChild(parts);
-	parts = NULL;
-=======
-	for (int i = 0; i < 4; ++i)
-	{
-		float x = 0;
-		float z = 0;
-
-		if (i < 4)
-		{
-			x = theEnemy->position.x -15.0f + (i * 15.0f);
-
-			parts = new CEnemy();
-			parts->Init1(1);
-			parts->SetPos(Vector3(x, 0, 15.0f));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part = headNode->AddChild(parts);
-			parts = NULL;
-
-			parts = new CEnemy();
-			parts->Init1(1);
-			parts->SetPos(Vector3(x, 0, -15.0f));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part2 = headNode->AddChild(parts);
-			parts = NULL;
-		}
-		else
-		{
-			parts = new CEnemy();
-			parts->Init1(1);
-			parts->SetPos(Vector3(x, 0, 0));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part3 = headNode->AddChild(parts);
-			parts = NULL;
-
-			parts = new CEnemy();
-			parts->Init1(1);
-			parts->SetPos(Vector3(x, 0, 0));
-			parts->SetScale(Vector3(5, 5, 5));
-			parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-			parts->SetTerrain(groundEntity);
-			parts->SetTarget(theEnemy->GetTarget());
-			CSceneNode* part4 = headNode->AddChild(parts);
-			parts = NULL;
-		}
-	}
->>>>>>> 8f814f3e98d1eb0b44fdfa1d447e16ed336e1d60
-
 	theEnemy = NULL;
 
-
 	theEnemy1 = new CEnemy();
-	theEnemy1->Init(0);
+	theEnemy1->Init1(0);
 	theEnemy1->SetPos(Vector3(10, 10, 100));
 	theEnemy1->SetScale(Vector3(7, 7, 7));
 	theEnemy1->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
@@ -384,7 +314,7 @@ void SceneText::Init()
 	CSceneNode* headNode1 = CSceneGraph::GetInstance()->AddNode(theEnemy1);
 
 	parts = new CEnemy();
-	parts->Init(1);
+	parts->Init1(1);
 	parts->SetPos(Vector3(theEnemy1->position.x + 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
 	parts->SetScale(Vector3(5, 5, 5));
 	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -394,7 +324,7 @@ void SceneText::Init()
 	parts = NULL;
 
 	parts = new CEnemy();
-	parts->Init(1);
+	parts->Init1(1);
 	parts->SetPos(Vector3(theEnemy1->position.x - 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
 	parts->SetScale(Vector3(5, 5, 5));
 	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -402,39 +332,7 @@ void SceneText::Init()
 	parts->SetTarget(theEnemy1->GetTarget());
 	CSceneNode* part3 = headNode1->AddChild(parts);
 	parts = NULL;
-
-	theEnemy2 = NULL;
-
-	theEnemy2 = new CEnemy();
-	theEnemy2->Init(0);
-	theEnemy2->SetPos(Vector3(200, 10, 100));
-	theEnemy2->SetScale(Vector3(7, 7, 7));
-	theEnemy2->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
-	theEnemy2->SetTerrain(groundEntity);
-	CSceneNode* headNode2 = CSceneGraph::GetInstance()->AddNode(theEnemy2);
-
-	parts = new CEnemy();
-	parts->Init(1);
-	parts->SetPos(Vector3(theEnemy2->position.x, theEnemy2->position.y - 5.f, theEnemy2->position.z + 15.0f));
-	parts->SetScale(Vector3(5, 5, 5));
-	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-	parts->SetTerrain(groundEntity);
-	parts->SetTarget(theEnemy2->GetTarget());
-	CSceneNode* part4 = headNode2->AddChild(parts);
-	parts = NULL;
-
-	parts = new CEnemy();
-	parts->Init(1);
-	parts->SetPos(Vector3(theEnemy2->position.x + 3.f, theEnemy2->position.y - 5.f, theEnemy2->position.z + 15.0f));
-	parts->SetScale(Vector3(5, 5, 5));
-	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-	parts->SetTerrain(groundEntity);
-	parts->SetTarget(theEnemy2->GetTarget());
-	CSceneNode* part5 = headNode2->AddChild(parts);
-	parts = NULL;
-
-	theEnemy2 = NULL;
-
+	theEnemy1 = NULL;
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	float halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;

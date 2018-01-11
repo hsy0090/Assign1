@@ -38,8 +38,10 @@ void EntityManager::Update(double _dt)
 	{
 		if ((*it)->IsDone())
 		{
+			//to do fix deleting entity
 			// Delete if done
-			delete *it;
+				//delete *it;
+
 			it = entityList.erase(it);
 		}
 		else

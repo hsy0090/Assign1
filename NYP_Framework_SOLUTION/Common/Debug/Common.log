@@ -1,1 +1,30 @@
-﻿
+﻿  Win32Input.cpp
+  Vector3.cpp
+  Vector2.cpp
+  Utility.cpp
+  timer.cpp
+  ShaderProgram.cpp
+  SceneManager.cpp
+  RenderHelper.cpp
+  Mtx44.cpp
+  MouseController.cpp
+  MeshBuilder.cpp
+  Mesh.cpp
+  MatrixStack.cpp
+  MathUtility.cpp
+  LoadTGA.cpp
+  LoadOBJ.cpp
+  LightBase.cpp
+  KeyboardController.cpp
+  GraphicsManager.cpp
+  EntityBase.cpp
+  Generating Code...
+  Compiling...
+  Collider.cpp
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\stanley\documents\assign1\nyp_framework_solution\common\source\collider\collider.cpp(24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  CameraBase.cpp
+  Generating Code...
+  Common.vcxproj -> C:\Users\Stanley\Documents\Assign1\NYP_Framework_SOLUTION\Debug\Common.lib
