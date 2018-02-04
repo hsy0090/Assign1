@@ -129,6 +129,7 @@ public:
 
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
+	//Vector3 position; //using generic entity
 	Vector3 maxBoundary, minBoundary;
 	GroundEntity* m_pTerrain;
 
@@ -147,6 +148,13 @@ private:
 
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
+
+	char keyMoveForward;
+	char keyMoveBackward;
+	char keyMoveLeft;
+	char keyMoveRight;
+
+	float mouseSensitivity;
 
 	//Health 
 	float m_fhealth;

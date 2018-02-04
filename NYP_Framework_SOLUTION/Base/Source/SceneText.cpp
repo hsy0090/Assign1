@@ -23,31 +23,32 @@
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
 #include "Waypoint\WaypointManager.h"
-#include "WeaponInfo\Pistol.h"
+#include "../Lua/LuaInterface.h"
 
 #include <iostream>
 using namespace std;
 
-SceneText* SceneText::sInstance = new SceneText(SceneManager::GetInstance());
+//SceneText* SceneText::sInstance = new SceneText(SceneManager::GetInstance());
 
 SceneText::SceneText()
 {
 }
 
-SceneText::SceneText(SceneManager* _sceneMgr)
-{
-	_sceneMgr->AddScene("Start", this);
-}
+//SceneText::SceneText(SceneManager* _sceneMgr)
+//{
+//	_sceneMgr->AddScene("Start", this);
+//}
 
 SceneText::~SceneText()
 {
-	//CWaypointManager::GetInstance()->DropInstance();
+	CWaypointManager::GetInstance()->DropInstance();
 	CSpatialPartition::GetInstance()->RemoveCamera();
 	CSceneGraph::GetInstance()->Destroy();
 }
 
 void SceneText::Init()
 {
+	
 	currProg = GraphicsManager::GetInstance()->LoadShader("default", "Shader//Texture.vertexshader", "Shader//Texture.fragmentshader");
 	
 	// Tell the shader program to store these uniform locations
@@ -90,6 +91,10 @@ void SceneText::Init()
 	// Tell the graphics manager to use the shader we just loaded
 	GraphicsManager::GetInstance()->SetActiveShader("default");
 
+	currProg->UpdateInt("numLights", 1);
+	currProg->UpdateInt("textEnabled", 0);
+	
+
 	lights[0] = new Light();
 	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
 	lights[0]->type = Light::LIGHT_DIRECTIONAL;
@@ -113,15 +118,11 @@ void SceneText::Init()
 	lights[1]->power = 0.4f;
 	lights[1]->name = "lights[1]";
 
-	currProg->UpdateInt("numLights", 1);
-	currProg->UpdateInt("textEnabled", 0);
-	
 	// Create the playerinfo instance, which manages all information about the player
 	playerInfo = CPlayerInfo::GetInstance();
 	playerInfo->Init();
 
 	// Create and attach the camera to the scene
-	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp());
 	playerInfo->AttachCamera(&camera);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
@@ -195,8 +196,6 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateOBJ("Crate3", "OBJ//Crate3.obj");
 	MeshBuilder::GetInstance()->GetMesh("Crate3")->textureID = LoadTGA("Image//Crate3.tga");
 
-
-
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -207,7 +206,6 @@ void SceneText::Init()
 	// Create entities into the scene
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
-
 
 	//house
 	GenericEntity* cottage = Create::Entity("Cottage", Vector3(-100.0f, -10.0f, 0.0f), Vector3(15.0f, 15.0f, 15.0f));
@@ -220,9 +218,8 @@ void SceneText::Init()
 	aCube->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	aCube->InitLOD("Crate", "Crate2", "Crate3");
 
-
 	// Add the pointer to this new entity to the Scene Graph
-	/*CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
+	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
 	if (theNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
@@ -235,14 +232,14 @@ void SceneText::Init()
 	if (anotherNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}*/
+	}
 	
 	GenericEntity* baseCube = Create::Asset("TankBody", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 	baseNode->ApplyTranslate(0.0f, -10.0f, -300.0f);
 
 	CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	baseMtx->ApplyUpdate( 0.0f, 0.0f, 0.5f);
+	baseMtx->ApplyUpdate(0.0f, 0.0f, 0.5f);
 	baseMtx->SetSteps(-280, 90);
 	baseNode->SetUpdateTransformation(baseMtx);
 
@@ -269,6 +266,10 @@ void SceneText::Init()
 	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
 	CWaypointManager::GetInstance()->PrintSelf();
 
+	// Create a CEnemy instance
+	theEnemy = new CEnemy();
+	theEnemy->Init();
+
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -282,29 +283,9 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
+	theEnemy->SetTerrain(groundEntity);
 
 	// Create a CEnemy instance
-	theEnemy = new CEnemy();
-	theEnemy->Init1(0);
-	theEnemy->SetPos(Vector3(100, 10, 0));
-	theEnemy->Init1(0);
-	theEnemy->SetPos(Vector3(100, 0, 0));
-	theEnemy->SetScale(Vector3(7, 7, 7));
-	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
-	theEnemy->SetTerrain(groundEntity);
-	CSceneNode* headNode = CSceneGraph::GetInstance()->AddNode(theEnemy);
-
-	parts = new CEnemy();
-	parts->Init1(1);
-	parts->SetPos(Vector3(theEnemy->position.x, theEnemy->position.y - 5.f, theEnemy->position.z - 15.0f));
-	parts->SetScale(Vector3(5, 5, 5));
-	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-	parts->SetTerrain(groundEntity);
-	parts->SetTarget(theEnemy->GetTarget());
-	CSceneNode* part = headNode->AddChild(parts);
-	parts = NULL;
-	theEnemy = NULL;
-
 	theEnemy1 = new CEnemy();
 	theEnemy1->Init1(0);
 	theEnemy1->SetPos(Vector3(10, 10, 100));
@@ -362,43 +343,44 @@ void SceneText::Init()
 void SceneText::Update(double dt)
 {
 	timer -= dt;
+
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
-	if(KeyboardController::GetInstance()->IsKeyDown('1'))
+	if (KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
-	if(KeyboardController::GetInstance()->IsKeyDown('2'))
+	if (KeyboardController::GetInstance()->IsKeyDown('2'))
 		glDisable(GL_CULL_FACE);
-	if(KeyboardController::GetInstance()->IsKeyDown('3'))
+	if (KeyboardController::GetInstance()->IsKeyDown('3'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if(KeyboardController::GetInstance()->IsKeyDown('4'))
+	if (KeyboardController::GetInstance()->IsKeyDown('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
-	if(KeyboardController::GetInstance()->IsKeyDown('5'))
+
+	if (KeyboardController::GetInstance()->IsKeyDown('5'))
 	{
 		lights[0]->type = Light::LIGHT_POINT;
 	}
-	else if(KeyboardController::GetInstance()->IsKeyDown('6'))
+	else if (KeyboardController::GetInstance()->IsKeyDown('6'))
 	{
 		lights[0]->type = Light::LIGHT_DIRECTIONAL;
 	}
-	else if(KeyboardController::GetInstance()->IsKeyDown('7'))
+	else if (KeyboardController::GetInstance()->IsKeyDown('7'))
 	{
 		lights[0]->type = Light::LIGHT_SPOT;
 	}
 
-	if(KeyboardController::GetInstance()->IsKeyDown('I'))
+	if (KeyboardController::GetInstance()->IsKeyDown('I'))
 		lights[0]->position.z -= (float)(10.f * dt);
-	if(KeyboardController::GetInstance()->IsKeyDown('K'))
+	if (KeyboardController::GetInstance()->IsKeyDown('K'))
 		lights[0]->position.z += (float)(10.f * dt);
-	if(KeyboardController::GetInstance()->IsKeyDown('J'))
+	if (KeyboardController::GetInstance()->IsKeyDown('J'))
 		lights[0]->position.x -= (float)(10.f * dt);
-	if(KeyboardController::GetInstance()->IsKeyDown('L'))
+	if (KeyboardController::GetInstance()->IsKeyDown('L'))
 		lights[0]->position.x += (float)(10.f * dt);
-	if(KeyboardController::GetInstance()->IsKeyDown('O'))
+	if (KeyboardController::GetInstance()->IsKeyDown('O'))
 		lights[0]->position.y -= (float)(10.f * dt);
-	if(KeyboardController::GetInstance()->IsKeyDown('P'))
+	if (KeyboardController::GetInstance()->IsKeyDown('P'))
 		lights[0]->position.y += (float)(10.f * dt);
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
@@ -435,16 +417,6 @@ void SceneText::Update(double dt)
 	}
 	// <THERE>
 
-	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) != playerInfo->GetPWeapon())
-	{
-		playerInfo->ChangePWeapon();
-	}
-
-	if (KeyboardController::GetInstance()->IsKeyDown('Q'))
-	{
-		playerInfo->ChangeSWeapon();
-	}
-
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
 
@@ -454,13 +426,12 @@ void SceneText::Update(double dt)
 
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
-	
 	//Health info
 	std::ostringstream ss0;
 	ss0.precision(5);
 	ss0 << "Health: " << playerInfo->GetHealth();
 	Left[0]->SetText(ss0.str());
-	
+
 	//Score info
 	std::ostringstream ss3;
 	ss3.precision(4);
@@ -525,38 +496,12 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
 
-	Vector3 view = (playerInfo->position - playerInfo->target).Normalized();
-	Vector3 right = view.Cross(playerInfo->up).Normalized();
-
-	/*if (CPlayerInfo::GetInstance()->GetPWeapon() == 1)
-	{
-		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-		modelStack.PushMatrix();
-		modelStack.Translate(playerInfo->position.x + 0.3, playerInfo->position.y - 0.5, playerInfo->position.z);
-		modelStack.Rotate((playerInfo->m_fcurrent_yaw), playerInfo->up.x, playerInfo->up.y, playerInfo->up.z);
-		modelStack.Rotate((playerInfo->m_fcurrent_pitch), right.x, right.y, right.z);
-		rifle->Render();
-		modelStack.PopMatrix();
-	}
-	else if (CPlayerInfo::GetInstance()->GetPWeapon() == 0)
-	{
-		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-		modelStack.PushMatrix();
-		modelStack.Translate(playerInfo->position.x, playerInfo->position.y, playerInfo->position.z);
-		modelStack.Rotate((playerInfo->m_fcurrent_yaw), right.x, right.y, right.z);
-		modelStack.Rotate((playerInfo->m_fcurrent_pitch), playerInfo->up.x, playerInfo->up.y, playerInfo->up.z);
-		modelStack.Scale(0.05f, 0.05f, 0.05f);
-		pistol->Render();
-		modelStack.PopMatrix();
-	}*/
-
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
 	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	EntityManager::GetInstance()->RenderUI();
-
 }
 
 void SceneText::Exit()

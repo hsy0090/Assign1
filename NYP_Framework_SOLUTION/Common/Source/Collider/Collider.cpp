@@ -2,8 +2,8 @@
 
 
 CCollider::CCollider()
-	: maxAABB(Vector3( 0, 0, 0))
-	, minAABB(Vector3( 0, 0, 0))
+	: maxAABB(Vector3(0, 0, 0))
+	, minAABB(Vector3(0, 0, 0))
 {
 }
 

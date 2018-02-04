@@ -7,11 +7,13 @@
 #include "../Projectile/Projectile.h"
 #include "../WeaponInfo/Pistol.h"
 #include "../WeaponInfo/LaserBlaster.h"
-#include "../WeaponInfo/AR.h"
 #include "../WeaponInfo/GrenadeThrow.h"
+#include "../WeaponInfo/AR.h"
 #include "../WeaponInfo/MineThrow.h"
 #include "../WeaponInfo/Detonator.h"
 #include "../EntityManager.h"
+
+#include "../Lua/LuaInterface.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -30,6 +32,11 @@ CPlayerInfo::CPlayerInfo(void)
 	, m_pTerrain(NULL)
 	, primaryWeapon(NULL)
 	, secondaryWeapon(NULL)
+	, keyMoveForward('W')
+	, keyMoveBackward('S')
+	, keyMoveLeft('A')
+	, keyMoveRight('D')
+	, mouseSensitivity(40.f)
 	, weaponPManager(NULL)
 	, weaponSManager(NULL)
 	, m_iCurrentPWeapon(0)
@@ -69,8 +76,8 @@ CPlayerInfo::~CPlayerInfo(void)
 	{
 		delete secondaryWeapon;
 		secondaryWeapon = NULL;
-	}*/
-	/*if (primaryWeapon)
+	}
+	if (primaryWeapon)
 	{
 		delete primaryWeapon;
 		primaryWeapon = NULL;
@@ -81,6 +88,10 @@ CPlayerInfo::~CPlayerInfo(void)
 // Initialise this class instance
 void CPlayerInfo::Init(void)
 {
+	int min, max, ave, n;
+	min = max = ave = n = 0;
+	CLuaInterface::GetInstance()->getVariableVal("GetMinMax", min, max, ave, n);
+
 	// Set the default values
 	defaultPosition.Set(0,0,10);
 	defaultTarget.Set(0,0,0);
@@ -119,6 +130,16 @@ void CPlayerInfo::Init(void)
 	// Set secondary weapon
 	secondaryWeapon = weaponSManager[GetSWeapon()];
 	secondaryWeapon->Init();
+
+	//Position Init
+	position = CLuaInterface::GetInstance()->getVec3Value("playerPos");
+
+	//Controls
+	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
+	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("keyFORWARD");
+	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("keyBACKWARD");
+	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("keyLEFT");
+	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("keyRIGHT");
 
 	// Initialise the Collider
 	this->SetCollider(true);
@@ -336,16 +357,15 @@ void CPlayerInfo::Update(double dt)
 	double camera_pitch = mouse_diff_y * 0.0174555555555556;	// 3.142 / 180.0
 
 	// Update the position if the WASD buttons were activated
-	if (KeyboardController::GetInstance()->IsKeyDown('W') ||
-		KeyboardController::GetInstance()->IsKeyDown('A') ||
-		KeyboardController::GetInstance()->IsKeyDown('S') ||
-		KeyboardController::GetInstance()->IsKeyDown('D'))
+	if (KeyboardController::GetInstance()->IsKeyDown(keyMoveForward) ||
+		KeyboardController::GetInstance()->IsKeyDown(keyMoveBackward) ||
+		KeyboardController::GetInstance()->IsKeyDown(keyMoveLeft) ||
+		KeyboardController::GetInstance()->IsKeyDown(keyMoveRight))
 	{
 		Vector3 viewVector = target - position;
 		Vector3 rightUV;
-
 		bool move = true;
-		if (KeyboardController::GetInstance()->IsKeyDown('W'))
+		if (KeyboardController::GetInstance()->IsKeyDown(keyMoveForward))
 		{
 			std::list<EntityBase*>::iterator collider;
 			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
@@ -370,14 +390,13 @@ void CPlayerInfo::Update(double dt)
 
 			if (move)
 				position += viewVector.Normalized() * (float)m_dSpeed * (float)dt;
-
 		}
-		else if (KeyboardController::GetInstance()->IsKeyDown('S'))
+		else if (KeyboardController::GetInstance()->IsKeyDown(keyMoveBackward))
 		{
 			position -= viewVector.Normalized() * (float)m_dSpeed * (float)dt;
 		}
 		bool move1 = true;
-		if (KeyboardController::GetInstance()->IsKeyDown('A'))
+		if (KeyboardController::GetInstance()->IsKeyDown(keyMoveLeft))
 		{
 			std::list<EntityBase*>::iterator collider;
 			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
@@ -407,7 +426,7 @@ void CPlayerInfo::Update(double dt)
 				position -= rightUV * (float)m_dSpeed * (float)dt;
 			}
 		}
-		else if (KeyboardController::GetInstance()->IsKeyDown('D'))
+		else if (KeyboardController::GetInstance()->IsKeyDown(keyMoveRight))
 		{
 			std::list<EntityBase*>::iterator collider;
 			for (collider = EntityManager::GetInstance()->entityList.begin(); collider != EntityManager::GetInstance()->entityList.end(); ++collider)
@@ -484,12 +503,8 @@ void CPlayerInfo::Update(double dt)
 			up = rightUV.Cross(viewUV).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-			
-			if (!((rotation * viewUV).y > 0.8 && pitch > 0))
-			{
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-			}
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
 		}
 		else if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
 		{
@@ -500,12 +515,8 @@ void CPlayerInfo::Update(double dt)
 			up = rightUV.Cross(viewUV).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-			
-			if (!((rotation * viewUV).y < -0.7 && pitch < 0))
-			{
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-			}
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
 		}
 	}
 
@@ -515,8 +526,7 @@ void CPlayerInfo::Update(double dt)
 		Vector3 rightUV;
 
 		{
-			float yaw = (float)(-m_dSpeed * camera_yaw * (float)dt * 10);
-			m_fcurrent_yaw += yaw;
+			float yaw = (float)(-mouseSensitivity * camera_yaw * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
 			viewUV = rotation * viewUV;
@@ -527,56 +537,17 @@ void CPlayerInfo::Update(double dt)
 			up = rightUV.Cross(viewUV).Normalized();
 		}
 		{
-			float pitch = (float)(-m_dSpeed * camera_pitch * (float)dt * 10);
+			float pitch = (float)(-mouseSensitivity * camera_pitch * (float)dt);
 			rightUV = viewUV.Cross(up);
 			rightUV.y = 0;
 			rightUV.Normalize();
 			up = rightUV.Cross(viewUV).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-
-			if (!((rotation * viewUV).y > 0.8 && pitch > 0))
-				if (!((rotation * viewUV).y < -0.7 && pitch < 0))
-				{
-					m_fcurrent_pitch += pitch;
-
-					viewUV = rotation * viewUV;
-					target = position + viewUV;
-				}
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
 		}
 	}
-
-	/*{
-		Vector3 viewUV = (target - position).Normalized();
-		Vector3 rightUV;
-
-		{
-			float yaw = (float)(-m_dSpeed * camera_yaw * (float)dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			viewUV = rotation * viewUV;
-			target = position + viewUV;
-			rightUV = viewUV.Cross(up);
-			rightUV.y = 0;
-			rightUV.Normalize();
-			up = rightUV.Cross(viewUV).Normalized();
-		}
-		{
-			float pitch = (float)(-m_dSpeed * camera_pitch * (float)dt);
-			rightUV = viewUV.Cross(up);
-			rightUV.y = 0;
-			rightUV.Normalize();
-			up = rightUV.Cross(viewUV).Normalized();
-			Mtx44 rotation;
-			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-			
-			if (!((rotation * viewUV).y > 0.8 && pitch > 0) && !((rotation * viewUV).y < -0.7 && pitch < 0))
-			{
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-			}
-		}
-	}*/
 
 	// If the user presses SPACEBAR, then make him jump
 	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
@@ -599,7 +570,6 @@ void CPlayerInfo::Update(double dt)
 			//secondaryWeapon->PrintSelf();
 		}
 	}
-
 	if (primaryWeapon)
 		primaryWeapon->Update(dt);
 	if (secondaryWeapon)
@@ -609,12 +579,7 @@ void CPlayerInfo::Update(double dt)
 	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
 	{
 		if (primaryWeapon)
-		{
-			if (primaryWeapon == weaponPManager[2])
-				dynamic_cast<CDetonator*>(primaryWeapon)->Discharge();
-			else
-				primaryWeapon->Discharge(position, target, this);
-		}
+			primaryWeapon->Discharge(position, target, this);
 	}
 	else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
 	{
@@ -622,7 +587,7 @@ void CPlayerInfo::Update(double dt)
 			secondaryWeapon->Discharge(position, target, this);
 	}
 
-	// If the user presses P key, then reset the view to default values
+	// If the user presses R key, then reset the view to default values
 	if (KeyboardController::GetInstance()->IsKeyDown('P'))
 	{
 		Reset();
@@ -631,18 +596,6 @@ void CPlayerInfo::Update(double dt)
 	{
 		UpdateJumpUpwards(dt);
 		UpdateFreeFall(dt);
-	}
-
-	static bool bState = false;
-	if (!bState && KeyboardController::GetInstance()->IsKeyUp('Z'))
-	{
-		bState = true;
-		SetGrid(false);
-	}
-	else if (bState && !KeyboardController::GetInstance()->IsKeyUp('Z'))
-	{
-		bState = false;
-		SetGrid(true);
 	}
 
 	// If a camera is attached to this playerInfo class, then update it

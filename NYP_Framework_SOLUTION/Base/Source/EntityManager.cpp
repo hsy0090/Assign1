@@ -7,8 +7,6 @@
 #include "Enemy\Enemy.h"
 
 #include <iostream>
-#include <typeinfo>
-
 using namespace std;
 
 // Update all entities
@@ -38,10 +36,8 @@ void EntityManager::Update(double _dt)
 	{
 		if ((*it)->IsDone())
 		{
-			//to do fix deleting entity
 			// Delete if done
-				//delete *it;
-
+			delete *it;
 			it = entityList.erase(it);
 		}
 		else
@@ -67,11 +63,8 @@ void EntityManager::Render()
 	CSceneGraph::GetInstance()->Render();
 
 	// Render the Spatial Partition
-	if (CPlayerInfo::GetInstance()->GetGrid())
-	{
-		if (theSpatialPartition)
-			theSpatialPartition->Render();
-	}
+	/*if (theSpatialPartition)
+		theSpatialPartition->Render();*/
 }
 
 // Render the UI entities
@@ -259,7 +252,7 @@ bool EntityManager::CheckSphereCollision(EntityBase *ThisEntity, EntityBase *Tha
 	return false;
 }
 
-bool EntityManager::CheckSphereCollision(Vector3 Pos, Vector3 MaxAABB, Vector3 MinAABB, EntityBase *ThatEntity)
+bool EntityManager::CheckSphereCollision(Vector3 Pos, Vector3 MaxAABB, Vector3 MinAABB, EntityBase * ThatEntity)
 {
 	// Get the colliders for the 2 entities
 	CCollider *thatCollider = dynamic_cast<CCollider*>(ThatEntity);
@@ -281,7 +274,6 @@ bool EntityManager::CheckSphereCollision(Vector3 Pos, Vector3 MaxAABB, Vector3 M
 
 	return false;
 }
-
 
 // Check if this entity collided with another entity, but both must have collider
 bool EntityManager::CheckAABBCollision(EntityBase *ThisEntity, EntityBase *ThatEntity)
@@ -446,6 +438,7 @@ bool EntityManager::CheckForCollision(void)
 			// This object was derived from a CCollider class, then it will have Collision Detection methods
 			//CCollider *thisCollider = dynamic_cast<CCollider*>(*colliderThis);
 			EntityBase *thisEntity = dynamic_cast<EntityBase*>(*colliderThis);
+
 			// Check for collision with another collider class
 			colliderThatEnd = entityList.end();
 			int counter = 0;
@@ -456,7 +449,6 @@ bool EntityManager::CheckForCollision(void)
 
 				if ((*colliderThat)->HasCollider())
 				{
-
 					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*colliderThat);
 					if (CheckSphereCollision(thisEntity, thatEntity))
 					{
@@ -465,20 +457,18 @@ bool EntityManager::CheckForCollision(void)
 							if (typeid(*thisEntity) != typeid(CPlayerInfo) && typeid(*thatEntity) != typeid(CPlayerInfo) && !(typeid(*thisEntity) == typeid(CEnemy) && typeid(*thatEntity) == typeid(CEnemy)))
 							{
 								CPlayerInfo::GetInstance()->AddScore(10);
-								thatEntity->SetIsDone(true);
 								thisEntity->SetIsDone(true);
+								thatEntity->SetIsDone(true);
 
-								// Remove from Scene Graphs
+								// Remove from Scene Graph
 								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
 								{
 									cout << "*** This Entity removed ***" << endl;
-									CPlayerInfo::GetInstance()->AddScore(10);
 								}
 								// Remove from Scene Graph
 								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
 								{
 									cout << "*** That Entity removed ***" << endl;
-									CPlayerInfo::GetInstance()->AddScore(10);
 								}
 							}
 						}

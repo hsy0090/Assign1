@@ -63,8 +63,6 @@ void CEnemy::Init(void)
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
-	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
-	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
@@ -124,6 +122,7 @@ void CEnemy::Init1(int type)
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
 }
+
 
 // Reset this player instance to default
 void CEnemy::Reset(void)
@@ -221,26 +220,24 @@ void CEnemy::Update(double dt)
 		break;
 	}
 
-
+	//Vector3 viewVector = (target - position).Normalized();
+	//position += viewVector * (float)m_dSpeed * (float)dt;
 	//cout << position << "..." << viewVector << endl;
 
 	// Constrain the position
 	Constrain();
-
-	//Vector3 viewVector = (target - position).Normalized();
-	//position += viewVector * (float)m_dSpeed * (float)dt;
 
 	this->SetPAAABB(Vector3(scale.x * 3.f, scale.y * 3.f, scale.z * 3.f), position);
 	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Update the target
-	
-	/*if (position.z > 400.0f)
+	/*
+	if (position.z > 400.0f)
 	target.z = position.z * -1;
 	else if (position.z < -400.0f)
-	target.z = position.z * -1;*/
-	
+	target.z = position.z * -1;
+	*/
 
 	/*if ((target - position).LengthSquared() < 25.0f)
 	{
@@ -268,8 +265,8 @@ void CEnemy::Constrain(void)
 
 	// if the y position is not equal to terrain height at that position, 
 	// then update y position to the terrain height
-	/*if (position.y != m_pTerrain->GetTerrainHeight(position))
-		position.y = m_pTerrain->GetTerrainHeight(position);*/
+	if (position.y != m_pTerrain->GetTerrainHeight(position))
+		position.y = m_pTerrain->GetTerrainHeight(position);
 }
 
 // Render

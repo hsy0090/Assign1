@@ -36,9 +36,6 @@ protected:
 	// Current ID of Waypoint
 	int m_iWayPointIndex;
 
-	Vector3 dir;
-	float dirangle;
-
 	double m_dSpeed;
 	double m_dAcceleration;
 

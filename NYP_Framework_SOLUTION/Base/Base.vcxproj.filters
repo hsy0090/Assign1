@@ -40,6 +40,12 @@
     <Filter Include="Waypoint">
       <UniqueIdentifier>{cefb8874-96bd-4356-bec8-84091096971f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameStateManagement">
+      <UniqueIdentifier>{b1606fe2-5ef2-4cdd-baea-061dd29daa02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{ce679d6f-cdf4-4922-bc28-c951603c2237}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -132,17 +138,26 @@
     <ClCompile Include="Source\Waypoint\WaypointManager.cpp">
       <Filter>Waypoint</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Projectile\Mine.cpp">
-      <Filter>Projectile</Filter>
+    <ClCompile Include="Source\GameStateManagement\IntroState.cpp">
+      <Filter>GameStateManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\WeaponInfo\MineThrow.cpp">
-      <Filter>WeaponInfo</Filter>
+    <ClCompile Include="Source\GameStateManagement\MenuState.cpp">
+      <Filter>GameStateManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Lua\LuaInterface.cpp">
+      <Filter>Lua</Filter>
     </ClCompile>
     <ClCompile Include="Source\WeaponInfo\AR.cpp">
       <Filter>WeaponInfo</Filter>
     </ClCompile>
     <ClCompile Include="Source\WeaponInfo\Detonator.cpp">
       <Filter>WeaponInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WeaponInfo\MineThrow.cpp">
+      <Filter>WeaponInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile\Mine.cpp">
+      <Filter>Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,17 +248,41 @@
     <ClInclude Include="Source\Waypoint\WaypointManager.h">
       <Filter>Waypoint</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Projectile\Mine.h">
-      <Filter>Projectile</Filter>
+    <ClInclude Include="Source\GameStateManagement\IntroState.h">
+      <Filter>GameStateManagement</Filter>
     </ClInclude>
-    <ClInclude Include="Source\WeaponInfo\MineThrow.h">
-      <Filter>WeaponInfo</Filter>
+    <ClInclude Include="Source\GameStateManagement\MenuState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lauxlib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\luaconf.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lualib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\LuaInterface.h">
+      <Filter>Lua</Filter>
     </ClInclude>
     <ClInclude Include="Source\WeaponInfo\AR.h">
       <Filter>WeaponInfo</Filter>
     </ClInclude>
     <ClInclude Include="Source\WeaponInfo\Detonator.h">
       <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponInfo\MineThrow.h">
+      <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile\Mine.h">
+      <Filter>Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

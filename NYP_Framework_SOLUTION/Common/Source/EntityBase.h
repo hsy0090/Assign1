@@ -34,7 +34,6 @@ public:
 	Vector3 position;
 
 protected:
-
 	Vector3 scale;
 
 	bool isDone;

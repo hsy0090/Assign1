@@ -15,7 +15,7 @@ void RenderHelper::RenderMesh(Mesh* _mesh)
 	// Disable lighting stuff
 	currProg->UpdateInt("lightEnabled", 0);
 
-		// Update textures first if available
+	// Update textures first if available
 	if (_mesh)
 	{
 		if (_mesh->textureID > 0)
@@ -28,7 +28,6 @@ void RenderHelper::RenderMesh(Mesh* _mesh)
 		{
 			currProg->UpdateInt("colorTextureEnabled", 0);
 		}
-
 
 		// Do actual rendering
 		_mesh->Render();
