@@ -48,7 +48,7 @@ SceneText::~SceneText()
 
 void SceneText::Init()
 {
-	
+	/*
 	currProg = GraphicsManager::GetInstance()->LoadShader("default", "Shader//Texture.vertexshader", "Shader//Texture.fragmentshader");
 	
 	// Tell the shader program to store these uniform locations
@@ -93,7 +93,7 @@ void SceneText::Init()
 
 	currProg->UpdateInt("numLights", 1);
 	currProg->UpdateInt("textEnabled", 0);
-	
+	*/
 
 	lights[0] = new Light();
 	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
@@ -123,6 +123,7 @@ void SceneText::Init()
 	playerInfo->Init();
 
 	// Create and attach the camera to the scene
+	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp());
 	playerInfo->AttachCamera(&camera);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
@@ -162,9 +163,9 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_TOP")->textureID = LoadTGA("Image//SkyBox//skybox_top.tga");
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
-	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 	MeshBuilder::GetInstance()->GenerateOBJ("pistol", "OBJ//Pistol_.obj");
 	MeshBuilder::GetInstance()->GetMesh("pistol")->textureID = LoadTGA("Image//Pistol.tga");
+	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 
 	//assign models
 	MeshBuilder::GetInstance()->GenerateOBJ("Cottage", "OBJ//COTTAGE.obj");
@@ -218,8 +219,13 @@ void SceneText::Init()
 	aCube->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	aCube->InitLOD("Crate", "Crate2", "Crate3");
 
+	GenericEntity* aCube1 = Create::Entity("Crate", Vector3(100.0f, -6.0f, 10.0f), Vector3(0.2f, 0.2f, 0.2f));
+	aCube1->SetCollider(true);
+	aCube1->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
+	aCube1->InitLOD("Crate", "Crate2", "Crate3");
+
 	// Add the pointer to this new entity to the Scene Graph
-	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
+	/*CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
 	if (theNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
@@ -232,7 +238,7 @@ void SceneText::Init()
 	if (anotherNode == NULL)
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}
+	}*/
 	
 	GenericEntity* baseCube = Create::Asset("TankBody", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
@@ -261,9 +267,18 @@ void SceneText::Init()
 	grandchildNode->SetUpdateTransformation(aRotateMtx);
 	
 	// Create a Waypoint inside WaypointManager
-	int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0f, 50.0f));
-	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint, Vector3(10.0f, 0.0f, -50.0f));
-	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_1");
+	int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(	CLuaInterface::GetInstance()->GetField("x"),
+																			CLuaInterface::GetInstance()->GetField("y"),
+																			CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_2");
+	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint, Vector3(	CLuaInterface::GetInstance()->GetField("x"),
+																							CLuaInterface::GetInstance()->GetField("y"),
+																							CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_3");
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(CLuaInterface::GetInstance()->GetField("x"),
+																			CLuaInterface::GetInstance()->GetField("y"),
+																			CLuaInterface::GetInstance()->GetField("z")));
 	CWaypointManager::GetInstance()->PrintSelf();
 
 	// Create a CEnemy instance
@@ -288,7 +303,7 @@ void SceneText::Init()
 	// Create a CEnemy instance
 	theEnemy1 = new CEnemy();
 	theEnemy1->Init1(0);
-	theEnemy1->SetPos(Vector3(10, 10, 100));
+	theEnemy1->SetPos(Vector3(80, 10, 50));
 	theEnemy1->SetScale(Vector3(7, 7, 7));
 	theEnemy1->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
 	theEnemy1->SetTerrain(groundEntity);
@@ -314,6 +329,7 @@ void SceneText::Init()
 	CSceneNode* part3 = headNode1->AddChild(parts);
 	parts = NULL;
 	theEnemy1 = NULL;
+
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	float halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
@@ -348,39 +364,39 @@ void SceneText::Update(double dt)
 	EntityManager::GetInstance()->Update(dt);
 
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
-	if (KeyboardController::GetInstance()->IsKeyDown('1'))
+	if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
-	if (KeyboardController::GetInstance()->IsKeyDown('2'))
+	if(KeyboardController::GetInstance()->IsKeyDown('2'))
 		glDisable(GL_CULL_FACE);
-	if (KeyboardController::GetInstance()->IsKeyDown('3'))
+	if(KeyboardController::GetInstance()->IsKeyDown('3'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if (KeyboardController::GetInstance()->IsKeyDown('4'))
+	if(KeyboardController::GetInstance()->IsKeyDown('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	if (KeyboardController::GetInstance()->IsKeyDown('5'))
+	
+	if(KeyboardController::GetInstance()->IsKeyDown('5'))
 	{
 		lights[0]->type = Light::LIGHT_POINT;
 	}
-	else if (KeyboardController::GetInstance()->IsKeyDown('6'))
+	else if(KeyboardController::GetInstance()->IsKeyDown('6'))
 	{
 		lights[0]->type = Light::LIGHT_DIRECTIONAL;
 	}
-	else if (KeyboardController::GetInstance()->IsKeyDown('7'))
+	else if(KeyboardController::GetInstance()->IsKeyDown('7'))
 	{
 		lights[0]->type = Light::LIGHT_SPOT;
 	}
 
-	if (KeyboardController::GetInstance()->IsKeyDown('I'))
+	if(KeyboardController::GetInstance()->IsKeyDown('I'))
 		lights[0]->position.z -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('K'))
+	if(KeyboardController::GetInstance()->IsKeyDown('K'))
 		lights[0]->position.z += (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('J'))
+	if(KeyboardController::GetInstance()->IsKeyDown('J'))
 		lights[0]->position.x -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('L'))
+	if(KeyboardController::GetInstance()->IsKeyDown('L'))
 		lights[0]->position.x += (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('O'))
+	if(KeyboardController::GetInstance()->IsKeyDown('O'))
 		lights[0]->position.y -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('P'))
+	if(KeyboardController::GetInstance()->IsKeyDown('P'))
 		lights[0]->position.y += (float)(10.f * dt);
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
@@ -474,15 +490,15 @@ void SceneText::Update(double dt)
 	Right[1]->SetText(ss4.str());
 
 
-	if (playerInfo->GetHealth() <= 0)
+	/*if (playerInfo->GetHealth() <= 0)
 	{
 		exit(0);
-	}
+	}*/
 
-	if (timer <= 0)
+	/*if (timer <= 0)
 	{
 		exit(0);
-	}
+	}*/
 }
 
 void SceneText::Render()

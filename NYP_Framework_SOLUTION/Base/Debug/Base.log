@@ -1,5 +1,79 @@
-﻿  Enemy.cpp
+﻿  WeaponInfo.cpp
+  Pistol.cpp
+  MineThrow.cpp
+  LaserBlaster.cpp
+  GrenadeThrow.cpp
+  Detonator.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\weaponinfo\detonator.cpp(43): warning C4018: '<': signed/unsigned mismatch
+  AR.cpp
+  WaypointManager.cpp
+  Waypoint.cpp
+  TextEntity.cpp
+  SpriteEntity.cpp
+  SpatialPartition.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(154): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(178): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\spatialpartition.cpp(180): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Grid.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(42): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(43): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(123): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(136): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(175): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\spatialpartition\grid.cpp(203): warning C4018: '<': signed/unsigned mismatch
+  SkyBoxEntity.cpp
+  SceneText.cpp
+  UpdateTransformation.cpp
+  Transform.cpp
+  SceneNode.cpp
+  SceneGraph.cpp
+  Projectile.cpp
+  Generating Code...
+  Compiling...
+  Mine.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\mine.cpp(41): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\mine.cpp(62): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\mine.cpp(66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\mine.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  Laser.cpp
+  Grenade.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\grenade.cpp(54): warning C4018: '<': signed/unsigned mismatch
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\grenade.cpp(71): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\projectile\grenade.cpp(75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PlayerInfo.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(677): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(682): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\playerinfo\playerinfo.cpp(692): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  OBJMesh.cpp
+  main.cpp
+  LuaInterface.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(112): warning C4244: 'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(115): warning C4244: 'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(118): warning C4244: 'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(121): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(151): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(153): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(155): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(157): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(168): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(178): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\lua\luainterface.cpp(209): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  Light.cpp
+  LevelOfDetails.cpp
+  GroundEntity.cpp
+  GenericEntity.cpp
+  MenuState.cpp
+  IntroState.cpp
+  FPSCamera.cpp
+  EntityManager.cpp
+  Enemy.cpp
+  Application.cpp
+c:\users\hsy00\desktop\work\sch\yr2\sem2\advanced game development techniques\assign1-master\assign1-master\nyp_framework_solution\base\source\application.cpp(141): warning C4305: 'argument': truncation from 'double' to 'const float'
+  Generating Code...
 Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\NYP_Framework_SOLUTION_wk15\NYP_Framework_SOLUTION_wk15\Debug\Base.exe
-  Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\NYP_Framework_SOLUTION_wk15\NYP_Framework_SOLUTION_wk15\Debug\Base.pdb (Full PDB)
+  Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\Assign1-master\Assign1-master\NYP_Framework_SOLUTION\Debug\Base.exe
+  Base.vcxproj -> C:\Users\hsy00\Desktop\Work\Sch\Yr2\Sem2\ADVANCED GAME DEVELOPMENT TECHNIQUES\Assign1-master\Assign1-master\NYP_Framework_SOLUTION\Debug\Base.pdb (Full PDB)

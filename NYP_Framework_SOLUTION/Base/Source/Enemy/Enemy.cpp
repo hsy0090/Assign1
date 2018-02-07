@@ -6,7 +6,7 @@
 
 CEnemy::CEnemy()
 	: GenericEntity(NULL)
-	, defaultPosition(Vector3(0.0f,0.0f,0.0f))
+	, defaultPosition(Vector3(0.0f, 0.0f, 0.0f))
 	, defaultTarget(Vector3(0.0f, 0.0f, 0.0f))
 	, defaultUp(Vector3(0.0f, 0.0f, 0.0f))
 	, target(Vector3(0.0f, 0.0f, 0.0f))
@@ -16,6 +16,7 @@ CEnemy::CEnemy()
 	, m_pTerrain(NULL)
 	, m_iWayPointIndex(-1)
 	, state(IDLE)
+	, prev(Vector3(0,0,0))
 {
 	listOfWaypoints.clear();
 }
@@ -116,7 +117,7 @@ void CEnemy::Init1(int type)
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
-	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
+	Searchrange.SetPAABB(Vector3(scale.x * 80.f, scale.y * 80.f, scale.z * 80.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Add to EntityManager
@@ -228,7 +229,7 @@ void CEnemy::Update(double dt)
 	Constrain();
 
 	this->SetPAAABB(Vector3(scale.x * 3.f, scale.y * 3.f, scale.z * 3.f), position);
-	Searchrange.SetPAABB(Vector3(scale.x * 50.f, scale.y * 50.f, scale.z * 50.f), position);
+	Searchrange.SetPAABB(Vector3(scale.x * 80.f, scale.y * 80.f, scale.z * 80.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Update the target
@@ -239,15 +240,7 @@ void CEnemy::Update(double dt)
 	target.z = position.z * -1;
 	*/
 
-	/*if ((target - position).LengthSquared() < 25.0f)
-	{
-		CWaypoint* nextWaypoint = GetNextWaypoint();
-		if (nextWaypoint)
-			target = nextWaypoint->GetPosition();
-		else
-			target = Vector3(0, 0, 0);
-		cout << "Next target: " << target << endl;
-	}*/
+
 }
 
 // Constrain the position within the borders
@@ -293,6 +286,7 @@ void CEnemy::Idle(Vector3 playermax, Vector3 playermin, double dt)
 	{
 		state = SEARCH;
 	}
+
 }
 
 void CEnemy::Search(Vector3 playermax, Vector3 playermin, double dt)
@@ -300,6 +294,7 @@ void CEnemy::Search(Vector3 playermax, Vector3 playermin, double dt)
 	if (!EntityManager::GetInstance()->CheckOverlap(Searchrange.GetMinAABB(), Searchrange.GetMaxAABB(), playermin, playermax))
 	{
 		state = IDLE;
+		return;
 	}
 	else
 	{
@@ -323,7 +318,11 @@ void CEnemy::Search(Vector3 playermax, Vector3 playermin, double dt)
 
 	if (EntityManager::GetInstance()->CheckOverlap(Attackrange.GetMinAABB(), Attackrange.GetMaxAABB(), playermin, playermax))
 	{
+		//Store prev waypoint
+		prev = target;
+
 		state = ATTACK;
+		return;
 	}
 }
 
@@ -331,7 +330,9 @@ void CEnemy::Attack(Vector3 playermax, Vector3 playermin, double dt)
 {
 	if (!EntityManager::GetInstance()->CheckOverlap(Attackrange.GetMinAABB(), Attackrange.GetMaxAABB(), playermin, playermax))
 	{
+		target = prev;
 		state = SEARCH;
+		return;
 	}
 
 	target = CPlayerInfo::GetInstance()->GetPos();

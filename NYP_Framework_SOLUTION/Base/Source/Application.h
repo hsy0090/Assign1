@@ -50,6 +50,8 @@ private:
 
 	// Pointer to shader program
 	ShaderProgram* currProg;
+
+	bool mouseactive;
 };
 
 #endif

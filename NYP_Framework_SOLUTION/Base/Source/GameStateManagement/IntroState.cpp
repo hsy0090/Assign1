@@ -73,6 +73,7 @@ void CIntroState::Render()
 	// Render the required entities
 	EntityManager::GetInstance()->RenderUI();
 }
+
 void CIntroState::Exit()
 {
 	// Remove the entity from EntityManager

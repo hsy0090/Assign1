@@ -2,8 +2,6 @@
 
 // includes the lua headers
 #include <lua.hpp>
-#include <string>
-
 #include "Vector3.h"
 
 class CLuaInterface
@@ -35,7 +33,7 @@ public:
 	virtual ~CLuaInterface();
 
 	// Initialisation of the Lua Interface Class
-	bool Init(const std::string _filename = "Image//DM2240.lua");
+	bool Init();
 
 	// Run the Lua Interface Class
 	void Run();
@@ -49,22 +47,26 @@ public:
 	float getFloatValue(const char* varName);
 	// Get a char value through the Lua Interface Class
 	char getCharValue(const char* varName);
-	// Get a char value through the Lua Interface Class
-	Vector3 getVec3Value(const char* varName);
-	// Get distance square vlaue
-	float getDistanceSquare(const char* varName, Vector3 src, Vector3 dest);
-	// Get variable number of values
-	int getVariableVal(const char* varName, int &a, int &b, int &c, int &d);
+	// Get Vector3 values through the Lua Interface Class
+	Vector3 getVector3Values(const char* varName);
+	// Get distance square value through the Lua Interface Class
+	float getDistanceSquareValue(const char* varName, Vector3 source, Vector3 destination);
+	// Get variable number of values through the Lua Interface Class
+	int getVariableValues(const char* varName, int &a, int &b, int &c, int &d);
 
 	// Save an integer value through the Lua Interface Class
 	void saveIntValue(const char* varName, const int value, const bool bOverwrite = NULL);
 	// Save a float value through the Lua Interface Class
 	void saveFloatValue(const char* varName, const float value, const bool bOverwrite = NULL);
 
+	// Extract a field from a table
+	float CLuaInterface::GetField(const char *key);
+
+	// Get error message using an error code
+	void error(const char *errorCode);
+
 	// Pointer to the Lua State
 	lua_State *theLuaState;
-
-	// Key to move forward
-	char keyFORWARD;
+	lua_State *theErrorState;
 };
 

@@ -1,4 +1,3 @@
---Saving score to file
 function SaveToLuaFile(outputString, overwrite)
    print("SaveToLuaFile...")
    local f;						-- The file
@@ -14,43 +13,53 @@ function SaveToLuaFile(outputString, overwrite)
    print("OK")
 end
 
---Calculate dist
 function CalculateDistanceSquare(x1,y1,z1,x2,y2,z2)
 	local distanceSquare = (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1)
 	print(distanceSquare)
 	return distanceSquare
 end
 
---Variable Values
 function GetMinMax(...)
-	
-	local sum = 0
-	local n = 0
-	local ave = 0
+	local minValue = -1
+	local maxValue = -1
+	local avgValue = -1
+	local numValues = 0
+	for i,v in ipairs(arg) do
+		if minValue == -1 then
+			minValue = v
+		elseif v < minValue then
+			minValue = v
+		end
 
-	--for i,v in ipairs(arg) do
-	--	print(i, v)
-	--end
+		if maxValue == -1 then
+			maxValue = v
+		elseif v > maxValue then
+			maxValue = v
+		end
 
-	--local minimum = math.min(...)
-	--local maximum = math.max(...)
-	
-	print(minimum)
-	return  arg.n,ave,maximum,minimum
+		avgValue = avgValue + v
+		numValues = numValues + 1
+    end
+	avgValue = avgValue / numValues
+	print(minValue, maxValue, avgValue, numValues)
+	return minValue, maxValue, avgValue, numValues
 end
 
 title = "DM2240 - Week 14 Scripting"
-
---Window size
 width = 800
 height = 600
 
---Player Init
-playerPos = {100,0,200};
+-- Keyboard Inputs
+moveForward  = "W"
+moveBackward = "S"
+moveLeft     = "A"
+moveRight    = "D"
+mouseSensitivity = 40.0
 
---Keyboard Inputs
-mouseSensitivity = 400
-keyFORWARD = "W"
-keyBACKWARD = "S"
-keyLEFT = "A"
-keyRIGHT = "D"
+-- CPlayerInfo start position
+CPlayerInfoStartPos = {0,0,10}
+
+-- Way points
+Waypoint_A_1 = {x=80.0, y=0.0, z=60.0}
+Waypoint_A_2 = {x=80.0, y=0.0, z=-60.0}
+Waypoint_A_3 = {x=160.0, y=0.0, z=0.0}

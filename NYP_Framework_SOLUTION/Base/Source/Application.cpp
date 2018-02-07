@@ -118,8 +118,8 @@ void Application::InitDisplay(void)
 }
 
 Application::Application()
-	: m_window_width(640)
-	, m_window_height(480)
+	: m_window_width(0)
+	, m_window_height(0)
 
 {
 }
@@ -138,7 +138,7 @@ void Application::Init()
 	m_window_height = CLuaInterface::GetInstance()->getIntValue("height");
 
 	CLuaInterface::GetInstance()->Run();
-	CLuaInterface::GetInstance()->saveFloatValue("Player1", 888.10, true);
+	CLuaInterface::GetInstance()->saveFloatValue("Player1", 200.10, true);
 	CLuaInterface::GetInstance()->saveIntValue("Player2", 100);
 
 	//Set the error callback
@@ -190,6 +190,7 @@ void Application::Init()
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetMouseButtonCallback(m_window, &Application::MouseButtonCallbacks);
 	glfwSetScrollCallback(m_window, &Application::MouseScrollCallbacks);
+	mouseactive = false;
 
 	// Init systems
 	GraphicsManager::GetInstance()->Init();
@@ -215,6 +216,19 @@ void Application::Run()
 		
 		SceneManager::GetInstance()->Update(m_timer.getElapsedTime());
 		SceneManager::GetInstance()->Render();
+
+		//mouse display
+		if (SceneManager::GetInstance()->GetActiveScene() != "GameState")
+		{
+			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			mouseactive = true;
+		}
+		else
+		{
+			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+			mouseactive = false;
+		}
+
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -252,7 +266,7 @@ void Application::UpdateInput()
 void Application::PostInputUpdate()
 {
 	// If mouse is centered, need to update the center position for next frame
-	if (MouseController::GetInstance()->GetKeepMouseCentered())
+	if (MouseController::GetInstance()->GetKeepMouseCentered() && !mouseactive)
 	{
 		double mouse_currX, mouse_currY;
 		mouse_currX = m_window_width >> 1;

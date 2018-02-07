@@ -13,11 +13,11 @@ public:
 	virtual void Render();
 	virtual void RenderUI();
 
-	inline void SetPosition(const Vector3& _value){ position = _value; };
-	inline Vector3 GetPosition(){ return position; };
+	inline void SetPosition(const Vector3& _value) { position = _value; };
+	inline Vector3 GetPosition() { return position; };
 
-	inline void SetScale(const Vector3& _value){ scale = _value; };
-	inline Vector3 GetScale(){ return scale; };
+	inline void SetScale(const Vector3& _value) { scale = _value; };
+	inline Vector3 GetScale() { return scale; };
 
 	bool IsDone();
 	void SetIsDone(const bool _value);

@@ -12,7 +12,6 @@
 #include "../WeaponInfo/MineThrow.h"
 #include "../WeaponInfo/Detonator.h"
 #include "../EntityManager.h"
-
 #include "../Lua/LuaInterface.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
@@ -32,11 +31,11 @@ CPlayerInfo::CPlayerInfo(void)
 	, m_pTerrain(NULL)
 	, primaryWeapon(NULL)
 	, secondaryWeapon(NULL)
-	, keyMoveForward('W')
-	, keyMoveBackward('S')
-	, keyMoveLeft('A')
-	, keyMoveRight('D')
-	, mouseSensitivity(40.f)
+	, keyMoveForward(' ')
+	, keyMoveBackward(' ')
+	, keyMoveLeft(' ')
+	, keyMoveRight(' ')
+	, mouseSensitivity(0.f)
 	, weaponPManager(NULL)
 	, weaponSManager(NULL)
 	, m_iCurrentPWeapon(0)
@@ -88,17 +87,14 @@ CPlayerInfo::~CPlayerInfo(void)
 // Initialise this class instance
 void CPlayerInfo::Init(void)
 {
-	int min, max, ave, n;
-	min = max = ave = n = 0;
-	CLuaInterface::GetInstance()->getVariableVal("GetMinMax", min, max, ave, n);
-
 	// Set the default values
 	defaultPosition.Set(0,0,10);
 	defaultTarget.Set(0,0,0);
 	defaultUp.Set(0,1,0);
 
 	// Set the current values
-	position.Set(0, 0, 10);
+	position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos");
+//	position.Set(0, 0, 10);
 	target.Set(0, 0, 0);
 	up.Set(0, 1, 0);
 
@@ -131,19 +127,24 @@ void CPlayerInfo::Init(void)
 	secondaryWeapon = weaponSManager[GetSWeapon()];
 	secondaryWeapon->Init();
 
-	//Position Init
-	position = CLuaInterface::GetInstance()->getVec3Value("playerPos");
-
-	//Controls
-	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
-	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("keyFORWARD");
-	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("keyBACKWARD");
-	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("keyLEFT");
-	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("keyRIGHT");
-
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
+
+	// Initialise the custom keyboard inputs
+	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
+	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
+	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("moveBackward");
+	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("moveLeft");
+	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("moveRight");
+
+
+	float distanceSquare = CLuaInterface::GetInstance()->getDistanceSquareValue("CalculateDistanceSquare", 
+																				 Vector3(0, 0, 0),
+																				 Vector3(10, 10, 10));
+
+	int a = 1, b = 2, c = 3, d = 4;
+	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
 
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
@@ -472,7 +473,7 @@ void CPlayerInfo::Update(double dt)
 		Vector3 rightUV;
 		if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
 		{
-			float yaw = (float)m_dSpeed * (float)dt;
+			float yaw = (float)(mouseSensitivity * 0.05f * m_dSpeed * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
 			viewUV = rotation * viewUV;
@@ -484,7 +485,7 @@ void CPlayerInfo::Update(double dt)
 		}
 		else if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
 		{
-			float yaw = (float)(-m_dSpeed * (float)dt);
+			float yaw = (float)(mouseSensitivity * 0.05f * -m_dSpeed * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
 			viewUV = rotation * viewUV;
@@ -496,7 +497,7 @@ void CPlayerInfo::Update(double dt)
 		}
 		if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
 		{
-			float pitch = (float)(m_dSpeed * (float)dt);
+			float pitch = (float)(mouseSensitivity * 0.05f * m_dSpeed * (float)dt);
 			rightUV = viewUV.Cross(up);
 			rightUV.y = 0;
 			rightUV.Normalize();
@@ -508,7 +509,7 @@ void CPlayerInfo::Update(double dt)
 		}
 		else if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
 		{
-			float pitch = (float)(-m_dSpeed * (float)dt);
+			float pitch = (float)(mouseSensitivity * 0.05f * -m_dSpeed * (float)dt);
 			rightUV = viewUV.Cross(up);
 			rightUV.y = 0;
 			rightUV.Normalize();
@@ -579,7 +580,12 @@ void CPlayerInfo::Update(double dt)
 	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
 	{
 		if (primaryWeapon)
-			primaryWeapon->Discharge(position, target, this);
+		{
+			if (primaryWeapon == weaponPManager[2])
+				dynamic_cast<CDetonator*>(primaryWeapon)->Discharge();
+			else
+				primaryWeapon->Discharge(position, target, this);
+		}
 	}
 	else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
 	{
@@ -596,6 +602,16 @@ void CPlayerInfo::Update(double dt)
 	{
 		UpdateJumpUpwards(dt);
 		UpdateFreeFall(dt);
+	}
+
+	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) != GetPWeapon())
+	{
+		ChangePWeapon();
+	}
+
+	if (KeyboardController::GetInstance()->IsKeyDown('Q'))
+	{
+		ChangeSWeapon();
 	}
 
 	// If a camera is attached to this playerInfo class, then update it

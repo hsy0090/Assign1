@@ -84,6 +84,23 @@ void CC4::SetTerrain(GroundEntity* m_pTerrain)
 	this->m_pTerrain = m_pTerrain;
 }
 
+void CC4::Explode()
+{
+	// Check the SpatialPartition to destroy nearby objects
+	vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
+	for (int i = 0; i < ExportList.size(); ++i)
+	{
+		SetIsDone(true);
+
+		// Remove from Scene Graph
+		if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
+		{
+			cout << "*** This Entity removed ***" << endl;
+		}
+
+	}
+}
+
 // Create a projectile and add it into EntityManager
 CC4* Create::Mine(const std::string& _meshName,
 	const Vector3& _position,

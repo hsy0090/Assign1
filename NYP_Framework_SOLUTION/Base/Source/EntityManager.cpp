@@ -64,7 +64,7 @@ void EntityManager::Render()
 
 	// Render the Spatial Partition
 	/*if (theSpatialPartition)
-		theSpatialPartition->Render();*/
+	theSpatialPartition->Render();*/
 }
 
 // Render the UI entities
@@ -102,7 +102,7 @@ bool EntityManager::RemoveEntity(EntityBase* _existingEntity)
 		findIter = entityList.erase(findIter);
 
 		// Remove from SceneNode too
-		if (CSceneGraph::GetInstance()->DeleteNode(_existingEntity)==false)
+		if (CSceneGraph::GetInstance()->DeleteNode(_existingEntity) == false)
 		{
 			cout << "EntityManager::RemoveEntity: Unable to remove this entity from Scene Graph" << endl;
 		}
@@ -113,7 +113,7 @@ bool EntityManager::RemoveEntity(EntityBase* _existingEntity)
 				theSpatialPartition->Remove(_existingEntity);
 		}
 
-		return true;	
+		return true;
 	}
 	// Return false if not found
 	return false;
@@ -159,7 +159,7 @@ EntityManager::~EntityManager()
 
 // Check for overlap
 bool EntityManager::CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vector3 thatMinAABB, Vector3 thatMaxAABB)
-{	
+{
 	// Check if this object is overlapping that object
 	/*
 	if (((thatMinAABB.x >= thisMinAABB.x) && (thatMinAABB.x <= thisMaxAABB.x) &&
@@ -296,8 +296,8 @@ bool EntityManager::CheckAABBCollision(EntityBase *ThisEntity, EntityBase *ThatE
 	// Do more collision checks with other points on each bounding box
 	Vector3 altThisMinAABB = Vector3(thisMinAABB.x, thisMinAABB.y, thisMaxAABB.z);
 	Vector3 altThisMaxAABB = Vector3(thisMaxAABB.x, thisMaxAABB.y, thisMinAABB.z);
-//	Vector3 altThatMinAABB = Vector3(thatMinAABB.x, thatMinAABB.y, thatMaxAABB.z);
-//	Vector3 altThatMaxAABB = Vector3(thatMaxAABB.x, thatMaxAABB.y, thatMinAABB.z);
+	//	Vector3 altThatMinAABB = Vector3(thatMinAABB.x, thatMinAABB.y, thatMaxAABB.z);
+	//	Vector3 altThatMaxAABB = Vector3(thatMaxAABB.x, thatMaxAABB.y, thatMinAABB.z);
 
 	// Check for overlap
 	if (CheckOverlap(altThisMinAABB, altThisMaxAABB, thatMinAABB, thatMaxAABB))
@@ -338,9 +338,9 @@ bool EntityManager::CheckAABBCollision(Vector3 Pos, Vector3 MaxAABB, Vector3 Min
 // Check where a line segment between two positions intersects a plane
 bool EntityManager::GetIntersection(const float fDst1, const float fDst2, Vector3 P1, Vector3 P2, Vector3 &Hit)
 {
-	if ((fDst1 * fDst2) >= 0.0f) 
+	if ((fDst1 * fDst2) >= 0.0f)
 		return false;
-	if (fDst1 == fDst2) 
+	if (fDst1 == fDst2)
 		return false;
 	Hit = P1 + (P2 - P1) * (-fDst1 / (fDst2 - fDst1));
 	return true;
@@ -356,21 +356,21 @@ bool EntityManager::InBox(Vector3 Hit, Vector3 B1, Vector3 B2, const int Axis)
 }
 
 // Check for intersection between a line segment and a plane
-bool EntityManager::CheckLineSegmentPlane(	Vector3 line_start, Vector3 line_end, 
-											Vector3 minAABB, Vector3 maxAABB,
-											Vector3 &Hit)
+bool EntityManager::CheckLineSegmentPlane(Vector3 line_start, Vector3 line_end,
+	Vector3 minAABB, Vector3 maxAABB,
+	Vector3 &Hit)
 {
-	if ((GetIntersection(line_start.x - minAABB.x, line_end.x - minAABB.x, line_start, line_end, Hit) && 
-			InBox(Hit, minAABB, maxAABB, 1))
-		|| (GetIntersection(line_start.y - minAABB.y, line_end.y - minAABB.y, line_start, line_end, Hit) && 
+	if ((GetIntersection(line_start.x - minAABB.x, line_end.x - minAABB.x, line_start, line_end, Hit) &&
+		InBox(Hit, minAABB, maxAABB, 1))
+		|| (GetIntersection(line_start.y - minAABB.y, line_end.y - minAABB.y, line_start, line_end, Hit) &&
 			InBox(Hit, minAABB, maxAABB, 2))
-		|| (GetIntersection(line_start.z - minAABB.z, line_end.z - minAABB.z, line_start, line_end, Hit) && 
+		|| (GetIntersection(line_start.z - minAABB.z, line_end.z - minAABB.z, line_start, line_end, Hit) &&
 			InBox(Hit, minAABB, maxAABB, 3))
-		|| (GetIntersection(line_start.x - maxAABB.x, line_end.x - maxAABB.x, line_start, line_end, Hit) && 
+		|| (GetIntersection(line_start.x - maxAABB.x, line_end.x - maxAABB.x, line_start, line_end, Hit) &&
 			InBox(Hit, minAABB, maxAABB, 1))
-		|| (GetIntersection(line_start.y - maxAABB.y, line_end.y - maxAABB.y, line_start, line_end, Hit) && 
+		|| (GetIntersection(line_start.y - maxAABB.y, line_end.y - maxAABB.y, line_start, line_end, Hit) &&
 			InBox(Hit, minAABB, maxAABB, 2))
-		|| (GetIntersection(line_start.z - maxAABB.z, line_end.z - maxAABB.z, line_start, line_end, Hit) && 
+		|| (GetIntersection(line_start.z - maxAABB.z, line_end.z - maxAABB.z, line_start, line_end, Hit) &&
 			InBox(Hit, minAABB, maxAABB, 3)))
 		return true;
 
@@ -410,10 +410,10 @@ bool EntityManager::CheckForCollision(void)
 					Vector3 thatMinAABB = (*colliderThat)->GetPosition() + thatCollider->GetMinAABB();
 					Vector3 thatMaxAABB = (*colliderThat)->GetPosition() + thatCollider->GetMaxAABB();
 
-					if (CheckLineSegmentPlane(	thisEntity->GetPosition(), 
-												thisEntity->GetPosition() - thisEntity->GetDirection() * thisEntity->GetLength(),
-												thatMinAABB, thatMaxAABB,
-												hitPosition) == true)
+					if (CheckLineSegmentPlane(thisEntity->GetPosition(),
+						thisEntity->GetPosition() - thisEntity->GetDirection() * thisEntity->GetLength(),
+						thatMinAABB, thatMaxAABB,
+						hitPosition) == true)
 					{
 						(*colliderThis)->SetIsDone(true);
 						(*colliderThat)->SetIsDone(true);

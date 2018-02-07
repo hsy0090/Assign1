@@ -21,6 +21,7 @@ public:
 	void RemoveScene(const std::string& _name);
 	void SetActiveScene(const std::string& _name);
 	bool CheckSceneExist(const std::string& _name);
+	std::string GetActiveScene();
 
 private:
 	SceneManager();
@@ -28,6 +29,7 @@ private:
 
 	std::map<std::string, Scene*> sceneMap;
 	Scene* activeScene, *nextScene;
+	std::string activename;	//current scene name
 };
 
 #endif // SCENE_MANAGER_H
