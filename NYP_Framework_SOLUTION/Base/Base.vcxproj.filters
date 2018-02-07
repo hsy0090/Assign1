@@ -159,6 +159,12 @@
     <ClCompile Include="Source\Projectile\Mine.cpp">
       <Filter>Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStateManagement\OptionState.cpp">
+      <Filter>GameStateManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStateManagement\ShopState.cpp">
+      <Filter>GameStateManagement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -283,6 +289,12 @@
     </ClInclude>
     <ClInclude Include="Source\Projectile\Mine.h">
       <Filter>Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\OptionState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\ShopState.h">
+      <Filter>GameStateManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

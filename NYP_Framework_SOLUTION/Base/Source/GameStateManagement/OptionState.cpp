@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "introstate.h"
+#include "OptionState.h"
 #include "GL\glew.h"
 #include "../Application.h"
 #include "LoadTGA.h"
@@ -15,16 +15,16 @@ using namespace std;
 #include "KeyboardController.h"
 #include "SceneManager.h"
 
-CMenuState::CMenuState()
+COptionState::COptionState()
 {
 
 }
-CMenuState::~CMenuState()
+COptionState::~COptionState()
 {
 
 }
 
-void CMenuState::Init()
+void COptionState::Init()
 {
 	// Create and attach the camera to the scene
 	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -35,26 +35,21 @@ void CMenuState::Init()
 	MeshBuilder::GetInstance()->GetMesh("MENUSTATE_BKGROUND")->textureID = LoadTGA("Image//MenuState.tga");
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	float halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
-	MenuStateBackground = Create::Sprite2DObject("MENUSTATE_BKGROUND", 
-												 Vector3(halfWindowWidth, halfWindowHeight, 0.0f), 
-												 Vector3(800.0f, 600.0f, 0.0f));
+	OptionStateBackground = Create::Sprite2DObject("MENUSTATE_BKGROUND",
+		Vector3(halfWindowWidth, halfWindowHeight, 0.0f),
+		Vector3(800.0f, 600.0f, 0.0f));
 
 	cout << "CMenuState loaded\n" << endl;
 }
-void CMenuState::Update(double dt)
+void COptionState::Update(double dt)
 {
 	if (KeyboardController::GetInstance()->IsKeyReleased(VK_SPACE))
 	{
-		cout << "Loading CGameState" << endl;
-		SceneManager::GetInstance()->SetActiveScene("GameState");
-	}
-	if (KeyboardController::GetInstance()->IsKeyReleased(VK_ADD))
-	{
-		cout << "Loading COptionsState" << endl;
-		SceneManager::GetInstance()->SetActiveScene("OptionState");
+		cout << "Loading CMenuState" << endl;
+		SceneManager::GetInstance()->SetActiveScene("MenuState");
 	}
 }
-void CMenuState::Render()
+void COptionState::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -68,20 +63,20 @@ void CMenuState::Render()
 	EntityManager::GetInstance()->Render();
 
 	// Setup 2D pipeline then render 2D
-	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 
-															  Application::GetInstance().GetWindowWidth(), 
-															  0, 
-															  Application::GetInstance().GetWindowHeight(), 
-															  -10, 10);
+	GraphicsManager::GetInstance()->SetOrthographicProjection(0,
+		Application::GetInstance().GetWindowWidth(),
+		0,
+		Application::GetInstance().GetWindowHeight(),
+		-10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 
 	// Render the required entities
 	EntityManager::GetInstance()->RenderUI();
 }
-void CMenuState::Exit()
+void COptionState::Exit()
 {
 	// Remove the entity from EntityManager
-	EntityManager::GetInstance()->RemoveEntity(MenuStateBackground);
+	EntityManager::GetInstance()->RemoveEntity(OptionStateBackground);
 
 	// Remove the meshes which are specific to CMenuState
 	MeshBuilder::GetInstance()->RemoveMesh("MENUSTATE_BKGROUND");
