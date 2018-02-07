@@ -209,17 +209,17 @@ void SceneText::Init()
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
 	//house
-	GenericEntity* cottage = Create::Entity("Cottage", Vector3(-100.0f, -10.0f, 0.0f), Vector3(15.0f, 15.0f, 15.0f));
+	GenericEntity* cottage = Create::Entity("Cottage", CLuaInterface::GetInstance()->getVector3Values("CottagePos"), Vector3(15.0f, 15.0f, 15.0f));
 	cottage->SetCollider(true);
 	cottage->SetAABB(Vector3(30.f, 30.f, 30.f), Vector3(-30.f, -30.f, -30.f));
 
 	//lod crate
-	GenericEntity* aCube = Create::Entity("Crate", Vector3(-20.0f, -6.0f, -20.0f), Vector3(0.2f, 0.2f, 0.2f));
+	GenericEntity* aCube = Create::Entity("Crate", CLuaInterface::GetInstance()->getVector3Values("Create1Pos"), Vector3(0.2f, 0.2f, 0.2f));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	aCube->InitLOD("Crate", "Crate2", "Crate3");
 
-	GenericEntity* aCube1 = Create::Entity("Crate", Vector3(100.0f, -6.0f, 10.0f), Vector3(0.2f, 0.2f, 0.2f));
+	GenericEntity* aCube1 = Create::Entity("Crate", CLuaInterface::GetInstance()->getVector3Values("Create2Pos"), Vector3(0.2f, 0.2f, 0.2f));
 	aCube1->SetCollider(true);
 	aCube1->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	aCube1->InitLOD("Crate", "Crate2", "Crate3");
@@ -240,32 +240,49 @@ void SceneText::Init()
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
 	}*/
 	
-	GenericEntity* baseCube = Create::Asset("TankBody", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
+	//Tank===================================================================================
+	Vector3 Tankpos = CLuaInterface::GetInstance()->getVector3Values("TankInitPos");
+	Vector3 Tanksize = CLuaInterface::GetInstance()->getVector3Values("TankSize");
+	GenericEntity* baseCube = Create::Asset("TankBody", Tankpos, Tanksize);
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
-	baseNode->ApplyTranslate(0.0f, -10.0f, -300.0f);
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankBasePos");
+	baseNode->ApplyTranslate(CLuaInterface::GetInstance()->GetField("basex"), CLuaInterface::GetInstance()->GetField("basey"), CLuaInterface::GetInstance()->GetField("basez"));
 
 	CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	baseMtx->ApplyUpdate(0.0f, 0.0f, 0.5f);
-	baseMtx->SetSteps(-280, 90);
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankBaseUpdate");
+	baseMtx->ApplyUpdate(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z"));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankBaseAnimate");
+	baseMtx->SetSteps(CLuaInterface::GetInstance()->GetField("Min"),
+		CLuaInterface::GetInstance()->GetField("Max"));
 	baseNode->SetUpdateTransformation(baseMtx);
 
-
-	GenericEntity* childCube = Create::Asset("TankTurret", Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
+	GenericEntity* childCube = Create::Asset("TankTurret", Tankpos, Tanksize);
 	CSceneNode* childNode = baseNode->AddChild(childCube);
-	childNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
 	CUpdateTransformation* aTurnMtx = new CUpdateTransformation();
-	aTurnMtx->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
-	aTurnMtx->SetSteps(-90, 90);
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankTurretUpdate");
+	aTurnMtx->ApplyUpdate(CLuaInterface::GetInstance()->GetField("r"), CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z"));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankTurretAnimate");
+	aTurnMtx->SetSteps(CLuaInterface::GetInstance()->GetField("Min"),
+		CLuaInterface::GetInstance()->GetField("Max"));
 	childNode->SetUpdateTransformation(aTurnMtx);
 
-	GenericEntity* grandchildCube = Create::Asset("TankGun", Vector3(0.0f, 0.0f, 0.f), Vector3(2.0f, 2.0f, 2.0f));
+	GenericEntity* grandchildCube = Create::Asset("TankGun", Tankpos, Tanksize);
 	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	grandchildNode->ApplyTranslate(0.0f, 0.0f, 0.f);
 	CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
-	aRotateMtx->ApplyUpdate(0.1f, 1.0f, 0.0f, 0.0f);
-	aRotateMtx->SetSteps(-15, 10);
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankGunUpdate");
+	aRotateMtx->ApplyUpdate(CLuaInterface::GetInstance()->GetField("r"), CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z"));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "TankGunAnimate");
+	aRotateMtx->SetSteps(CLuaInterface::GetInstance()->GetField("Min"),
+		CLuaInterface::GetInstance()->GetField("Max"));
 	grandchildNode->SetUpdateTransformation(aRotateMtx);
-	
+	//=======================================================================================
+
 	// Create a Waypoint inside WaypointManager
 	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_1");
 	int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(	CLuaInterface::GetInstance()->GetField("x"),
@@ -279,11 +296,30 @@ void SceneText::Init()
 	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(CLuaInterface::GetInstance()->GetField("x"),
 																			CLuaInterface::GetInstance()->GetField("y"),
 																			CLuaInterface::GetInstance()->GetField("z")));
-	CWaypointManager::GetInstance()->PrintSelf();
+	
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_B_1");
+	int aWayPoint2 = CWaypointManager::GetInstance()->AddWaypoint(Vector3(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_B_2");
+	int anotherWaypoint2 = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint2, Vector3(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_B_3");
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint2, Vector3(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z")));
 
-	// Create a CEnemy instance
-	theEnemy = new CEnemy();
-	theEnemy->Init();
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_C_1");
+	int aWayPoint3 = CWaypointManager::GetInstance()->AddWaypoint(Vector3(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_C_2");
+	int anotherWaypoint3 = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint3, Vector3(CLuaInterface::GetInstance()->GetField("x"),
+		CLuaInterface::GetInstance()->GetField("y"),
+		CLuaInterface::GetInstance()->GetField("z")));
+
+	CWaypointManager::GetInstance()->PrintSelf();
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
@@ -293,24 +329,35 @@ void SceneText::Init()
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
 
+	// Create a CEnemy instance
+	theEnemy = new CEnemy();
+	theEnemy->Init();
+	theEnemy->Assignpath(3);
+	theEnemy->SetPos(CLuaInterface::GetInstance()->getVector3Values("Enemy3Pos"));
+	theEnemy->SetScale(Vector3(7, 7, 7));
+	theEnemy->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
+
+
 	// Customise the ground entity
-	groundEntity->SetPosition(Vector3(0, -10, 0));
-	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
-	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
+	groundEntity->SetPosition(CLuaInterface::GetInstance()->getVector3Values("GroundPos"));
+	groundEntity->SetScale(CLuaInterface::GetInstance()->getVector3Values("GroundSize"));
+	groundEntity->SetGrids(CLuaInterface::GetInstance()->getVector3Values("GroundGrid"));
 	playerInfo->SetTerrain(groundEntity);
 	theEnemy->SetTerrain(groundEntity);
 
 	// Create a CEnemy instance
 	theEnemy1 = new CEnemy();
 	theEnemy1->Init1(0);
-	theEnemy1->SetPos(Vector3(80, 10, 50));
+	theEnemy1->Assignpath(1);
+	theEnemy1->SetPos(CLuaInterface::GetInstance()->getVector3Values("Enemy1Pos"));
 	theEnemy1->SetScale(Vector3(7, 7, 7));
 	theEnemy1->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
 	theEnemy1->SetTerrain(groundEntity);
 	CSceneNode* headNode1 = CSceneGraph::GetInstance()->AddNode(theEnemy1);
-
+	//parts of ennemy
 	parts = new CEnemy();
 	parts->Init1(1);
+	parts->Assignpath(1);
 	parts->SetPos(Vector3(theEnemy1->position.x + 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
 	parts->SetScale(Vector3(5, 5, 5));
 	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -318,9 +365,10 @@ void SceneText::Init()
 	parts->SetTarget(theEnemy1->GetTarget());
 	CSceneNode* part2 = headNode1->AddChild(parts);
 	parts = NULL;
-
+	//parts of ennemy
 	parts = new CEnemy();
 	parts->Init1(1);
+	parts->Assignpath(1);
 	parts->SetPos(Vector3(theEnemy1->position.x - 2.f, theEnemy1->position.y - 2.f, theEnemy1->position.z + 15.0f));
 	parts->SetScale(Vector3(5, 5, 5));
 	parts->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
@@ -329,6 +377,38 @@ void SceneText::Init()
 	CSceneNode* part3 = headNode1->AddChild(parts);
 	parts = NULL;
 	theEnemy1 = NULL;
+
+	theEnemy2 = new CEnemy();
+	theEnemy2->Init1(0);
+	theEnemy2->Assignpath(2);
+	theEnemy2->SetPos(CLuaInterface::GetInstance()->getVector3Values("Enemy2Pos"));
+	theEnemy2->SetScale(Vector3(7, 7, 7));
+	theEnemy2->SetAABB(Vector3(3.5f, 3.5f, 3.5f), Vector3(-3.5f, -3.5f, -3.5f));
+	theEnemy2->SetTerrain(groundEntity);
+	CSceneNode* headNode2 = CSceneGraph::GetInstance()->AddNode(theEnemy2);
+	//parts of ennemy
+	parts1 = new CEnemy();
+	parts1->Init1(1);
+	parts1->Assignpath(2);
+	parts1->SetPos(Vector3(theEnemy2->position.x + 2.f, theEnemy2->position.y - 2.f, theEnemy2->position.z + 15.0f));
+	parts1->SetScale(Vector3(5, 5, 5));
+	parts1->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts1->SetTerrain(groundEntity);
+	parts1->SetTarget(theEnemy2->GetTarget());
+	CSceneNode* part4 = headNode2->AddChild(parts1);
+	parts1 = NULL;
+	//parts of ennemy
+	parts1 = new CEnemy();
+	parts1->Init1(1);
+	parts1->Assignpath(2);
+	parts1->SetPos(Vector3(theEnemy2->position.x - 2.f, theEnemy2->position.y - 2.f, theEnemy2->position.z + 15.0f));
+	parts1->SetScale(Vector3(5, 5, 5));
+	parts1->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	parts1->SetTerrain(groundEntity);
+	parts1->SetTarget(theEnemy2->GetTarget());
+	CSceneNode* part5 = headNode2->AddChild(parts1);
+	parts1 = NULL;
+	theEnemy2 = NULL;
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
@@ -350,7 +430,7 @@ void SceneText::Init()
 
 	Top[0] = Create::Text2DObject("text", Vector3(-halfWindowWidth / 2, halfWindowHeight - fontSize * 2, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
 
-	timer = 100.0;
+	timer = CLuaInterface::GetInstance()->getFloatValue("timer");
 
 	pistol = Create::Asset("pistol", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 	rifle = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));

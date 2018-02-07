@@ -34,21 +34,21 @@ void CEnemy::Init(void)
 	defaultUp.Set(0, 1, 0);
 
 	// Set up the waypoints
-	listOfWaypoints.push_back(0);
+	/*listOfWaypoints.push_back(0);
 	listOfWaypoints.push_back(1);
-	listOfWaypoints.push_back(2);
+	listOfWaypoints.push_back(2);*/
 
 	m_iWayPointIndex = 0;
 
 	// Set the current values
 	position.Set(10.0f, 0.0f, 0.0f);
 	//target.Set(10.0f, 0.0f, 450.0f);
-	CWaypoint* nextWaypoint = GetNextWaypoint();
+	/*CWaypoint* nextWaypoint = GetNextWaypoint();
 	if (nextWaypoint)
 		target = nextWaypoint->GetPosition();
 	else
 		target = Vector3(0, 0, 0);
-	cout << "Next target: " << target << endl;
+	cout << "Next target: " << target << endl;*/
 	up.Set(0.0f, 1.0f, 0.0f);
 
 	// Set Boundary
@@ -78,21 +78,21 @@ void CEnemy::Init1(int type)
 	defaultUp.Set(0, 1, 0);
 
 	// Set up the waypoints
-	listOfWaypoints.push_back(0);
+	/*listOfWaypoints.push_back(0);
 	listOfWaypoints.push_back(1);
-	listOfWaypoints.push_back(2);
+	listOfWaypoints.push_back(2);*/
 
 	m_iWayPointIndex = 0;
 
 	// Set the current values
 	position.Set(10.0f, 0.0f, 0.0f);
 	//target.Set(10.0f, 0.0f, 450.0f);
-	CWaypoint* nextWaypoint = GetNextWaypoint();
+	/*CWaypoint* nextWaypoint = GetNextWaypoint();
 	if (nextWaypoint)
 		target = nextWaypoint->GetPosition();
 	else
 		target = Vector3(0, 0, 0);
-	cout << "Next target: " << target << endl;
+	cout << "Next target: " << target << endl;*/
 	up.Set(0.0f, 1.0f, 0.0f);
 
 	// Set Boundary
@@ -117,7 +117,7 @@ void CEnemy::Init1(int type)
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
-	Searchrange.SetPAABB(Vector3(scale.x * 80.f, scale.y * 80.f, scale.z * 80.f), position);
+	Searchrange.SetPAABB(Vector3(scale.x * 85.f, scale.y * 85.f, scale.z * 85.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Add to EntityManager
@@ -229,7 +229,7 @@ void CEnemy::Update(double dt)
 	Constrain();
 
 	this->SetPAAABB(Vector3(scale.x * 3.f, scale.y * 3.f, scale.z * 3.f), position);
-	Searchrange.SetPAABB(Vector3(scale.x * 80.f, scale.y * 80.f, scale.z * 80.f), position);
+	Searchrange.SetPAABB(Vector3(scale.x * 85.f, scale.y * 85.f, scale.z * 85.f), position);
 	Attackrange.SetPAABB(Vector3(scale.x * 20.5f, scale.y * 20.5f, scale.z * 20.5f), position);
 
 	// Update the target
@@ -303,8 +303,7 @@ void CEnemy::Search(Vector3 playermax, Vector3 playermin, double dt)
 			CWaypoint* nextWaypoint = GetNextWaypoint();
 			if (nextWaypoint)
 				target = nextWaypoint->GetPosition();
-			else
-				target = Vector3(0, 0, 0);
+			
 			cout << "Next target: " << target << endl;
 		}
 	}
@@ -348,4 +347,36 @@ void CEnemy::Attack(Vector3 playermax, Vector3 playermin, double dt)
 
 	if (!collision && state != IDLE)
 		position += viewVector * (float)m_dSpeed * (float)dt;
+}
+
+void CEnemy::Assignpath(int path)
+{
+	CWaypoint* nextWaypoint = GetNextWaypoint();
+
+	switch (path)
+	{
+	case 1:
+		listOfWaypoints.push_back(0);
+		listOfWaypoints.push_back(1);
+		listOfWaypoints.push_back(2);
+		this->target = CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[0])->GetPosition();
+		break;
+
+	case 2:
+		listOfWaypoints.push_back(3);
+		listOfWaypoints.push_back(4);
+		listOfWaypoints.push_back(5);
+		this->target = CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[0])->GetPosition();
+		break;
+
+	case 3:
+		listOfWaypoints.push_back(6);
+
+		listOfWaypoints.push_back(7);
+		this->target = CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[0])->GetPosition();
+		break;
+
+	default:
+		break;
+	}
 }

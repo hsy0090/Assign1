@@ -143,10 +143,10 @@ float CLuaInterface::getDistanceSquareValue(const char* varName,
 int CLuaInterface::getVariableValues(const char* varName, int &a, int &b, int &c, int &d)
 {
 	lua_getglobal(theLuaState, varName);
-	lua_pushnumber(theLuaState, 1000);
-	lua_pushnumber(theLuaState, 2000);
-	lua_pushnumber(theLuaState, 3000);
-	lua_pushnumber(theLuaState, 4000);
+	lua_pushnumber(theLuaState, a);
+	lua_pushnumber(theLuaState, b);
+	lua_pushnumber(theLuaState, c);
+	lua_pushnumber(theLuaState, d);
 	lua_call(theLuaState, 4, 4);
 	a = lua_tonumber(theLuaState, -1);
 	lua_pop(theLuaState, 1);
@@ -195,7 +195,8 @@ void CLuaInterface::Drop()
 // Extract a field from a table
 float CLuaInterface::GetField(const char *key) 
 {
-	int result = false;
+	//int result = false;
+	float result = 0.f;
 
 	// Check if the variables in the Lua stack belongs to a table
 	if (!lua_istable(theLuaState, -1))
@@ -205,7 +206,8 @@ float CLuaInterface::GetField(const char *key)
 	lua_gettable(theLuaState, -2);
 	if (!lua_isnumber(theLuaState, -1))
 		error("error101");
-	result = (int)lua_tonumber(theLuaState, -1);
+	//result = (int)lua_tonumber(theLuaState, -1);
+	result = (float)lua_tonumber(theLuaState, -1);
 	lua_pop(theLuaState, 1);  /* remove number */
 	return result;
 }

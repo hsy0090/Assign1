@@ -128,8 +128,8 @@ void CPlayerInfo::Init(void)
 																				 Vector3(0, 0, 0),
 																				 Vector3(10, 10, 10));
 
-	int a = 1, b = 2, c = 3, d = 4;
-	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
+	//int a = 1, b = 2, c = 3, d = 4;
+	//CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
 
 
 	//Set Weapons

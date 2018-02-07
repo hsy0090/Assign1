@@ -47,6 +47,7 @@ private:
 	CEnemy* theEnemy1;
 	CEnemy* theEnemy2;
 	CEnemy* parts;
+	CEnemy* parts1;
 	GenericEntity* pistol;
 	GenericEntity* rifle;
 

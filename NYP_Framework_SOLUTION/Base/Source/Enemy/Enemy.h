@@ -82,4 +82,7 @@ public:
 	void Idle(Vector3 playermax, Vector3 playermin, double dt);
 	void Search(Vector3 playermax, Vector3 playermin, double dt);
 	void Attack(Vector3 playermax, Vector3 playermin, double dt);
+
+	//Path
+	void Assignpath(int path);
 };

@@ -3,3 +3,4 @@ Player2 = 100
 score = 0
 score = 40
 score = 0
+score = 0
