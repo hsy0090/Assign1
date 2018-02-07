@@ -48,10 +48,15 @@ void CMenuState::Update(double dt)
 		cout << "Loading CGameState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("GameState");
 	}
-	if (KeyboardController::GetInstance()->IsKeyReleased(VK_ADD))
+	if (KeyboardController::GetInstance()->IsKeyReleased(VK_F1))
 	{
 		cout << "Loading COptionsState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("OptionState");
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased(VK_F2))
+	{
+		cout << "Loading CShopState" << endl;
+		SceneManager::GetInstance()->SetActiveScene("ShopState");
 	}
 }
 void CMenuState::Render()
