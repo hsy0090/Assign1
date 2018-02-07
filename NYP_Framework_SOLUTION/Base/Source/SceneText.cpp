@@ -490,15 +490,17 @@ void SceneText::Update(double dt)
 	Right[1]->SetText(ss4.str());
 
 
-	/*if (playerInfo->GetHealth() <= 0)
+	if (playerInfo->GetHealth() <= 0)
 	{
+		CLuaInterface::GetInstance()->saveIntValue("score", playerInfo->GetScore(), false);
 		exit(0);
-	}*/
+	}
 
-	/*if (timer <= 0)
+	if (timer <= 0)
 	{
+		CLuaInterface::GetInstance()->saveIntValue("score", playerInfo->GetScore(), false);
 		exit(0);
-	}*/
+	}
 }
 
 void SceneText::Render()

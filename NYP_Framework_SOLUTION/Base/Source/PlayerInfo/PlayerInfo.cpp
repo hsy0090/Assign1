@@ -35,12 +35,17 @@ CPlayerInfo::CPlayerInfo(void)
 	, keyMoveBackward(' ')
 	, keyMoveLeft(' ')
 	, keyMoveRight(' ')
+	, keyJump(' ')
+	, keyReload(' ')
+	, keychangeSweapon(' ')
 	, mouseSensitivity(0.f)
 	, weaponPManager(NULL)
 	, weaponSManager(NULL)
 	, m_iCurrentPWeapon(0)
 	, m_iCurrentSWeapon(0)
-	, m_fhealth(100.f)
+	, m_iNumOfPWeapon(0)
+	, m_iNumOfSWeapon(0)
+	, m_fhealth(0)
 	, m_iscore(0)
 	, GenericEntity(NULL)
 	, m_bmove(true)
@@ -102,6 +107,31 @@ void CPlayerInfo::Init(void)
 	maxBoundary.Set(1,1,1);
 	minBoundary.Set(-1, -1, -1);
 
+	// Initialise the Collider
+	this->SetCollider(true);
+	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
+
+	// Initialise the custom keyboard inputs
+	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
+	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
+	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("moveBackward");
+	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("moveLeft");
+	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("moveRight");
+	keyJump = CLuaInterface::GetInstance()->getCharValue("jump");
+	keyReload = CLuaInterface::GetInstance()->getCharValue("reload");
+	keychangeSweapon = CLuaInterface::GetInstance()->getCharValue("changeSweapon");
+	m_fhealth = CLuaInterface::GetInstance()->getFloatValue("health");
+	m_iNumOfPWeapon = CLuaInterface::GetInstance()->getIntValue("numberofPweapons");
+	m_iNumOfSWeapon = CLuaInterface::GetInstance()->getIntValue("numberofSweapons");
+
+	float distanceSquare = CLuaInterface::GetInstance()->getDistanceSquareValue("CalculateDistanceSquare", 
+																				 Vector3(0, 0, 0),
+																				 Vector3(10, 10, 10));
+
+	int a = 1, b = 2, c = 3, d = 4;
+	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
+
+
 	//Set Weapons
 	weaponPManager = new CWeaponInfo*[m_iNumOfPWeapon];
 	weaponPManager[0] = new CPistol();
@@ -126,25 +156,6 @@ void CPlayerInfo::Init(void)
 	// Set secondary weapon
 	secondaryWeapon = weaponSManager[GetSWeapon()];
 	secondaryWeapon->Init();
-
-	// Initialise the Collider
-	this->SetCollider(true);
-	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
-
-	// Initialise the custom keyboard inputs
-	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
-	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
-	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("moveBackward");
-	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("moveLeft");
-	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("moveRight");
-
-
-	float distanceSquare = CLuaInterface::GetInstance()->getDistanceSquareValue("CalculateDistanceSquare", 
-																				 Vector3(0, 0, 0),
-																				 Vector3(10, 10, 10));
-
-	int a = 1, b = 2, c = 3, d = 4;
-	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
 
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
@@ -464,7 +475,7 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// Rotate the view direction
-	if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT) ||
+	/*if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT) ||
 		KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT) ||
 		KeyboardController::GetInstance()->IsKeyDown(VK_UP) ||
 		KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
@@ -519,7 +530,7 @@ void CPlayerInfo::Update(double dt)
 			viewUV = rotation * viewUV;
 			target = position + viewUV;
 		}
-	}
+	}*/
 
 	//Update the camera direction based on mouse move
 	{
@@ -551,14 +562,14 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// If the user presses SPACEBAR, then make him jump
-	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
+	if (KeyboardController::GetInstance()->IsKeyDown(keyJump) &&
 		position.y == m_pTerrain->GetTerrainHeight(position))
 	{
 		SetToJumpUpwards(true);
 	}
 
 	// Update the weapons
-	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
+	if (KeyboardController::GetInstance()->IsKeyReleased(keyReload))
 	{
 		if (primaryWeapon)
 		{
@@ -571,6 +582,7 @@ void CPlayerInfo::Update(double dt)
 			//secondaryWeapon->PrintSelf();
 		}
 	}
+
 	if (primaryWeapon)
 		primaryWeapon->Update(dt);
 	if (secondaryWeapon)
@@ -594,11 +606,11 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// If the user presses R key, then reset the view to default values
-	if (KeyboardController::GetInstance()->IsKeyDown('P'))
+	/*if (KeyboardController::GetInstance()->IsKeyDown('P'))
 	{
 		Reset();
 	}
-	else
+	else*/
 	{
 		UpdateJumpUpwards(dt);
 		UpdateFreeFall(dt);
@@ -609,9 +621,15 @@ void CPlayerInfo::Update(double dt)
 		ChangePWeapon();
 	}
 
-	if (KeyboardController::GetInstance()->IsKeyDown('Q'))
+	static bool keycS = false;
+	if (KeyboardController::GetInstance()->IsKeyDown(keychangeSweapon) && !keycS)
 	{
+		keycS = true;
 		ChangeSWeapon();
+	}
+	else
+	{
+		keycS = false;
 	}
 
 	// If a camera is attached to this playerInfo class, then update it

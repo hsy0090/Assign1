@@ -40,9 +40,13 @@ void CDetonator::Discharge()
 		if (magRounds > 0)
 		{
 
-			for (int i = 0; i < Active.size(); i++)
+			for (int i = 0; i < Active.size(); ++i)
 			{
-				Active[i]->Explode();
+				if (Active[i])
+				{
+					Active[i]->Explode();
+					//Active.erase(Active.begin() + i);
+				}
 			}
 
 			magRounds = 0;

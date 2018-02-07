@@ -53,6 +53,8 @@ void CGrenade::Update(double dt)
 		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 		for (int i = 0; i < ExportList.size(); ++i)
 		{
+			ExportList[i]->SetIsDone(true);
+
 			// Remove from Scene Graph
 			if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
 			{

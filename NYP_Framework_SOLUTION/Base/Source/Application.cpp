@@ -138,8 +138,8 @@ void Application::Init()
 	m_window_height = CLuaInterface::GetInstance()->getIntValue("height");
 
 	CLuaInterface::GetInstance()->Run();
-	CLuaInterface::GetInstance()->saveFloatValue("Player1", 200.10, true);
-	CLuaInterface::GetInstance()->saveIntValue("Player2", 100);
+	//CLuaInterface::GetInstance()->saveFloatValue("Player1", 200.10, true);
+	//CLuaInterface::GetInstance()->saveIntValue("Player2", 100);
 
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);

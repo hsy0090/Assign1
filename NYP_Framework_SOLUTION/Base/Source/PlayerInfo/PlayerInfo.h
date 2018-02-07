@@ -149,11 +149,14 @@ private:
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
 
+	//controls
 	char keyMoveForward;
 	char keyMoveBackward;
 	char keyMoveLeft;
 	char keyMoveRight;
-
+	char keyJump;
+	char keyReload;
+	char keychangeSweapon;
 	float mouseSensitivity;
 
 	//Health 
@@ -165,10 +168,10 @@ private:
 	//Weapon
 	//primary
 	int m_iCurrentPWeapon;
-	const int m_iNumOfPWeapon = 3;
+	int m_iNumOfPWeapon;
 	//secondary
 	int m_iCurrentSWeapon;
-	const int m_iNumOfSWeapon = 2;
+	int m_iNumOfSWeapon;
 
 	//Collision
 	bool m_bmove;

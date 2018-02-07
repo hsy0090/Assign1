@@ -37,11 +37,6 @@ private:
 	static bool IsKeyPressed(unsigned short key);
 	void InitDisplay(void);
 
-	// Should make these not hard-coded :P
-	/*
-	const static int m_window_width = 800;
-	const static int m_window_height = 600;
-	*/
 	int m_window_width;
 	int m_window_height;
 

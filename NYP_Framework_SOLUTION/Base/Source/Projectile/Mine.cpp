@@ -36,17 +36,22 @@ CC4::~CC4(void)
 	modelMesh = NULL;
 	theSource = NULL;
 
+	
+
 	// Check the SpatialPartition to destroy nearby objects
 	vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 	for (int i = 0; i < ExportList.size(); ++i)
 	{
+		ExportList[i]->SetIsDone(true);
+
 		// Remove from Scene Graph
 		if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
 		{
 			cout << "*** This Entity removed ***" << endl;
 		}
-
 	}
+
+
 }
 
 // Update the status of this projectile
@@ -65,8 +70,7 @@ void CC4::Update(double dt)
 			position.y + (float)(theDirection.y * m_fElapsedTime * m_fSpeed) + (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime),
 			position.z + (float)(theDirection.z * m_fElapsedTime * m_fSpeed));
 		
-		//Add Mine to detonator
-		dynamic_cast<CDetonator*>(CPlayerInfo::GetInstance()->weaponPManager[2])->Active.push_back(this);
+		
 		
 
 		if (position.y < m_pTerrain->GetTerrainHeight(position) - 10.0f)
@@ -86,18 +90,20 @@ void CC4::SetTerrain(GroundEntity* m_pTerrain)
 
 void CC4::Explode()
 {
+	if (isDone)
+		return;
+
 	// Check the SpatialPartition to destroy nearby objects
 	vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 	for (int i = 0; i < ExportList.size(); ++i)
 	{
-		SetIsDone(true);
+		ExportList[i]->SetIsDone(true);
 
 		// Remove from Scene Graph
 		if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
 		{
 			cout << "*** This Entity removed ***" << endl;
 		}
-
 	}
 }
 
@@ -120,5 +126,7 @@ CC4* Create::Mine(const std::string& _meshName,
 	result->SetSource(_source);
 	result->SetTerrain(_source->GetTerrain());
 	EntityManager::GetInstance()->AddEntity(result, true);
+	//Add Mine to detonator
+	dynamic_cast<CDetonator*>(CPlayerInfo::GetInstance()->weaponPManager[2])->Active.push_back(result);
 	return result;
 }
