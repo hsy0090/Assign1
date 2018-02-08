@@ -59,6 +59,10 @@ public:
 	// Save a float value through the Lua Interface Class
 	void saveFloatValue(const char* varName, const float value, const bool bOverwrite = NULL);
 
+	//	Player file
+	void setPFloatvalue(const char* varName, const float value, const bool bOverwrite = NULL);
+	void setPCharvalue(const char* varName, const char* value, const bool bOverwrite = NULL);
+	float getPFloatvalue(const char* varName);
 
 	// Extract a field from a table
 	float CLuaInterface::GetField(const char *key);

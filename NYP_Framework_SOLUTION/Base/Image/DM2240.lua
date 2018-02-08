@@ -13,6 +13,22 @@ function SaveToLuaFile(outputString, overwrite)
    f:close()
    print("OK")
 end
+
+function PlayerFile(outputString, overwrite)
+   print("PlayerLuaFile...")
+
+   local f;						-- The file
+   if overwrite == 1 then		-- Wipe the contents with new data
+      f = assert(io.open("Image/PlayerInfo.lua", "w"))
+   elseif overwrite == 0 then	-- Append with new data
+      f = assert(io.open("Image/PlayerInfo.lua", "a"))
+   end
+   -- Write to the file
+   f:write(outputString)
+   -- Close the file
+   f:close()
+   print("OK")
+end
 	
 function CalculateDistanceSquare(x1,y1,z1,x2,y2,z2)
 	local distanceSquare = (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1)

@@ -182,6 +182,39 @@ void CLuaInterface::saveFloatValue(const char* varName, const float value, const
 	lua_call(theLuaState, 2, 0);
 }
 
+void CLuaInterface::setPFloatvalue(const char * varName, const float value, const bool bOverwrite)
+{
+	lua_getglobal(theLuaState, "PlayerFile");
+	char outputString[80];
+	sprintf(outputString, "%s = %6.4f\n", varName, value);
+	lua_pushstring(theLuaState, outputString);
+	lua_pushinteger(theLuaState, bOverwrite);
+	lua_call(theLuaState, 2, 0);
+}
+
+void CLuaInterface::setPCharvalue(const char * varName, const char* value, const bool bOverwrite)
+{
+	lua_getglobal(theLuaState, "PlayerFile");
+	char outputString[80];
+	sprintf(outputString, "%s = %6.4f\n", varName, value);
+	lua_pushstring(theLuaState, outputString);
+	lua_pushstring(theLuaState, value);
+	lua_call(theLuaState, 2, 0);
+}
+
+float CLuaInterface::getPFloatvalue(const char * varName)
+{
+	// 3. Load lua script
+	lua_close(theLuaState);
+	luaL_dofile(theLuaState, "Image//PlayerInfo.lua");
+
+	lua_getglobal(theLuaState, varName);
+	float r = (float)lua_tonumber(theLuaState, -1);
+	//lua_close(theLuaState);
+	Init();
+	return r;
+}
+
 // Drop the Lua Interface Class
 void CLuaInterface::Drop()
 {
