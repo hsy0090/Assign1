@@ -23,7 +23,9 @@ private:
 	FPSCamera camera;
 	SpriteEntity* MenuStateBackground;
 	TextEntity* textObj[3];
-	TextEntity* Top[1];
+	TextEntity* Play;
+	TextEntity* Options;
+	TextEntity* Shop;
 	double cursorX;
 	double cursorY;
 	Vector3 cursor;

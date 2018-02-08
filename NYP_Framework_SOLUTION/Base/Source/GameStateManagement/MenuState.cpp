@@ -48,19 +48,17 @@ void CMenuState::Init()
 		Vector3(halfWindowWidth, halfWindowHeight, 0.0f),
 		Vector3(800.0f, 600.0f, 0.0f));
 	
-	//Create::Sprite2DObject("pistolicon", Vector3(halfWindowWidth, halfWindowHeight, 1.0f), Vector3(10.0f, 10.0f, 10.0f));
+	Create::Sprite2DObject("pistolicon", Vector3(halfWindowWidth, halfWindowHeight, 1.0f), Vector3(10.0f, 10.0f, 10.0f));
 
 	float fontSize = 25.0f;
 	float halfFontSize = fontSize / 2.0f;
 
-	Top[0] = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
-	
+	Play = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
+	Options = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight + 4 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
+	Options->SetPosition(Vector3(Options->position.x, Application::GetInstance().GetWindowHeight() - Options->position.y, Options->position.z));
+	Shop = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight + 8 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
+	Shop->SetPosition(Vector3(Shop->position.x, Application::GetInstance().GetWindowHeight() - Shop->position.y, Shop->position.z));
 
-	/*for (int i = 0; i < 2; ++i)
-	{
-		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
-	}
-	textObj[0]->SetText("HELLO WORLD");*/
 	cursor.SetZero();
 
 	cout << "CMenuState loaded\n" << endl;
@@ -69,31 +67,46 @@ void CMenuState::Init()
 void CMenuState::Update(double dt)
 {
 	
-	//Test
+	//Play
 	std::ostringstream ss1;
 	ss1.precision(4);
-	ss1 << "Text: " << 1;
-	Top[0]->SetText(ss1.str());
+	ss1 << "Play";
+	Play->SetText(ss1.str());
+
+	//Options
+	std::ostringstream ss2;
+	ss2.precision(4);
+	ss2 << "Options";
+	Options->SetText(ss2.str());
+
+	//Shop
+	std::ostringstream ss3;
+	ss3.precision(4);
+	ss3 << "Shop";
+	Shop->SetText(ss3.str());
+
 	MouseController::GetInstance()->GetMousePosition(cursor.x, cursor.y);
+
 	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
 	{
 		std::cout << "c: " << cursor << std::endl;
-		std::cout << Top[0]->GetMaxAABB() << std::endl;
-		std::cout << Top[0]->GetMinAABB() << std::endl;
+		std::cout << Play->GetMaxAABB() << std::endl;
+		std::cout << Play->GetMinAABB() << std::endl;
+		std::cout << Options->GetMaxAABB() << std::endl;
+		std::cout << Options->GetMinAABB() << std::endl;
 	}
-	//if (KeyboardController::GetInstance()->IsKeyReleased(VK_SPACE))
-	//MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && 
-	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Top[0]->GetMinAABB(), Top[0]->GetMaxAABB()))
+
+	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Play->GetMinAABB(), Play->GetMaxAABB()))
 	{
 		cout << "Loading CGameState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("GameState");
 	}
-	if (KeyboardController::GetInstance()->IsKeyReleased(VK_F1))
+	else if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Options->GetMinAABB(), Options->GetMaxAABB()))
 	{
 		cout << "Loading COptionsState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("OptionState");
 	}
-	if (KeyboardController::GetInstance()->IsKeyReleased(VK_F2))
+	else if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Shop->GetMinAABB(), Shop->GetMaxAABB()))
 	{
 		cout << "Loading CShopState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("ShopState");
@@ -127,6 +140,9 @@ void CMenuState::Exit()
 {
 	// Remove the entity from EntityManager
 	EntityManager::GetInstance()->RemoveEntity(MenuStateBackground);
+	EntityManager::GetInstance()->RemoveEntity(Play);
+	EntityManager::GetInstance()->RemoveEntity(Options);
+	EntityManager::GetInstance()->RemoveEntity(Shop);
 
 	// Remove the meshes which are specific to CMenuState
 	MeshBuilder::GetInstance()->RemoveMesh("MENUSTATE_BKGROUND");

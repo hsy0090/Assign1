@@ -40,8 +40,9 @@ public:
 	inline void SetTextRenderMode(TEXT_RENDERMODE _mode){ mode = _mode; };
 	inline void SetColor(const Color& _color){ color = _color; };
 
-private:
 	Vector3 position;
+private:
+	
 	Vector3 scale;
 	Mesh* modelMesh;
 	std::string text;
