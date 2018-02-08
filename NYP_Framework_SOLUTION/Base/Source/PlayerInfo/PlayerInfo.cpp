@@ -112,7 +112,7 @@ void CPlayerInfo::Init(void)
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
 
 	// Initialise the custom keyboard inputs
-	mouseSensitivity = CLuaInterface::GetInstance()->getFloatValue("mouseSensitivity");
+	mouseSensitivity = CLuaInterface::GetInstance()->getPFloatvalue("Sensitivty");
 	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
 	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("moveBackward");
 	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("moveLeft");
