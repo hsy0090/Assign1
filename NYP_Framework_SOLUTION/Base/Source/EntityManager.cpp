@@ -227,6 +227,12 @@ bool EntityManager::CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vecto
 	return false;
 }
 
+bool EntityManager::CheckPOverlap(Vector3 pos, Vector3 thatMinAABB, Vector3 thatMaxAABB)
+{
+	return (pos.x  < thatMaxAABB.x && pos.x  > thatMinAABB.x)
+		&& (pos.y < thatMaxAABB.y && pos.y  > thatMinAABB.y);
+}
+
 // Check if this entity's bounding sphere collided with that entity's bounding sphere 
 bool EntityManager::CheckSphereCollision(EntityBase *ThisEntity, EntityBase *ThatEntity)
 {

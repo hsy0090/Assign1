@@ -13,6 +13,7 @@
 #include "Enemy\Enemy.h"
 #include "WeaponInfo\Pistol.h"
 #include "WeaponInfo\AR.h"
+#include "SpriteEntity.h"
 
 class ShaderProgram;
 class SceneManager;
@@ -48,8 +49,8 @@ private:
 	CEnemy* theEnemy2;
 	CEnemy* parts;
 	CEnemy* parts1;
-	GenericEntity* pistol;
-	GenericEntity* rifle;
+	Mesh* pistol;
+	SpriteEntity* rifle;
 
 	//Timer
 	double timer;

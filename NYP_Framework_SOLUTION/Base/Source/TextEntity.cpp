@@ -49,6 +49,12 @@ void TextEntity::RenderUI()
 	modelStack.PopMatrix();
 }
 
+void TextEntity::SetPAABB(Vector3 size, Vector3 pos)
+{
+	this->maxAABB = size * (0.5, 0.5, 0.5) + pos;
+	this->minAABB = pos - size * (0.5, 0.5, 0.5);
+}
+
 TextEntity* Create::Text2DObject(const std::string& _meshName, const Vector3& _position, const std::string& _text, const Vector3& _scale, const Color& _color)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
@@ -58,6 +64,7 @@ TextEntity* Create::Text2DObject(const std::string& _meshName, const Vector3& _p
 	TextEntity* result = new TextEntity(modelMesh, _text, _color);
 	result->SetPosition(_position);
 	result->SetScale(_scale);
+	result->SetPAABB(_scale, _position);
 	result->SetTextRenderMode(TextEntity::MODE_2D);
 	EntityManager::GetInstance()->AddEntity(result);
 	return result;

@@ -22,5 +22,10 @@ public:
 private:
 	FPSCamera camera;
 	SpriteEntity* MenuStateBackground;
-	//	TextEntity* textObj[3];
+	TextEntity* textObj[3];
+	TextEntity* Top[1];
+	double cursorX;
+	double cursorY;
+	Vector3 cursor;
+	Mesh* pistol;
 };

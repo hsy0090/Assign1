@@ -13,6 +13,7 @@
 #include "GraphicsManager.h"
 #include "ShaderProgram.h"
 #include "EntityManager.h"
+#include "RenderHelper.h"
 
 #include "GenericEntity.h"
 #include "GroundEntity.h"
@@ -163,8 +164,8 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_TOP")->textureID = LoadTGA("Image//SkyBox//skybox_top.tga");
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
-	MeshBuilder::GetInstance()->GenerateOBJ("pistol", "OBJ//Pistol_.obj");
-	MeshBuilder::GetInstance()->GetMesh("pistol")->textureID = LoadTGA("Image//Pistol.tga");
+	pistol = MeshBuilder::GetInstance()->GenerateQuad("pistolicon", Color(1, 1, 1), 1.f);
+	pistol->textureID = LoadTGA("Image//pistol_icon.tga");
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 
 	//assign models
@@ -324,6 +325,7 @@ void SceneText::Init()
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
+	//Create::Sprite2DObject("pistolicon", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
@@ -432,8 +434,7 @@ void SceneText::Init()
 
 	timer = CLuaInterface::GetInstance()->getFloatValue("timer");
 
-	pistol = Create::Asset("pistol", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
-	rifle = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
+	rifle = Create::Sprite2DObject("cube", Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 }
 
 void SceneText::Update(double dt)
@@ -569,7 +570,6 @@ void SceneText::Update(double dt)
 	ss4 << "SAmmo:" << playerInfo->weaponSManager[playerInfo->GetSWeapon()]->GetMagRound() << " / " << playerInfo->weaponSManager[playerInfo->GetSWeapon()]->GetTotalRound();
 	Right[1]->SetText(ss4.str());
 
-
 	if (playerInfo->GetHealth() <= 0)
 	{
 		CLuaInterface::GetInstance()->saveIntValue("score", playerInfo->GetScore(), false);
@@ -581,6 +581,8 @@ void SceneText::Update(double dt)
 		CLuaInterface::GetInstance()->saveIntValue("score", playerInfo->GetScore(), false);
 		exit(0);
 	}
+
+	
 }
 
 void SceneText::Render()
@@ -594,12 +596,25 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
 
+	// Enable blend mode
+	//glEnable(GL_BLEND);
+
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
 	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	EntityManager::GetInstance()->RenderUI();
+
+	/*MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(400, 300, 1);
+	modelStack.Scale(10.f, 10.f, 10.f);
+	RenderHelper::RenderMesh(pistol);
+	modelStack.PopMatrix();*/
+
+	// Disable blend mode
+	//glDisable(GL_BLEND);
 }
 
 void SceneText::Exit()

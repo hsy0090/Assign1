@@ -35,6 +35,7 @@ public:
 
 	// Check for overlap
 	bool CheckOverlap(Vector3 thisMinAABB, Vector3 thisMaxAABB, Vector3 thatMinAABB, Vector3 thatMaxAABB);
+	bool CheckPOverlap(Vector3 pos, Vector3 thatMinAABB, Vector3 thatMaxAABB);
 
 private:
 	EntityManager();

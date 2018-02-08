@@ -2,13 +2,14 @@
 #define TEXT_ENTITY_H
 
 #include "EntityBase.h"
+#include "Collider\Collider.h"
 #include "Vector3.h"
 #include "Vertex.h"
 #include <string>
 
 class Mesh;
 
-class TextEntity : public EntityBase
+class TextEntity : public EntityBase, public CCollider
 {
 public:
 	enum TEXT_RENDERMODE
@@ -24,6 +25,8 @@ public:
 	virtual void Update(double _dt);
 	virtual void Render();
 	virtual void RenderUI();
+
+	void SetPAABB(Vector3 size, Vector3 pos);
 
 	inline void SetPosition(const Vector3& _value){ position = _value; };
 	inline Vector3 GetPosition(){ return position; };
