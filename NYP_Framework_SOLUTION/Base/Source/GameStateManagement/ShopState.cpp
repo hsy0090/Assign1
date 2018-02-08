@@ -48,6 +48,17 @@ void CShopState::Init()
 	Back = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight + 8 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
 	Back->SetPosition(Vector3(Back->position.x, Application::GetInstance().GetWindowHeight() - Back->position.y, Back->position.z));
 
+	
+
+
+
+	Buy = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight + 2 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
+	Buy->SetPosition(Vector3(Buy->position.x, Application::GetInstance().GetWindowHeight() - Buy->position.y, Buy->position.z));
+
+
+	Health = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight -2 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
+	Health->SetPosition(Vector3(Health->position.x, Application::GetInstance().GetWindowHeight() - Health->position.y, Health->position.z));
+
 	cursor.SetZero();
 
 	cout << "ShopState loaded\n" << endl;
@@ -61,6 +72,16 @@ void CShopState::Update(double dt)
 	ss << "Back";
 	Back->SetText(ss.str());
 
+	std::ostringstream ss1;
+	ss1.precision(4);
+	ss1 << "Buy";
+	Buy->SetText(ss1.str());
+
+	std::ostringstream ss2;
+	ss2.precision(4);
+	ss2 << "Health";
+	Health->SetText(ss2.str());
+
 	MouseController::GetInstance()->GetMousePosition(cursor.x, cursor.y);
 
 	if (KeyboardController::GetInstance()->IsKeyReleased(VK_SPACE))
@@ -73,6 +94,11 @@ void CShopState::Update(double dt)
 	{
 		cout << "Loading CMenuState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("MenuState");
+	}
+
+	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Buy->GetMinAABB(), Buy->GetMaxAABB()))
+	{
+		
 	}
 }
 void CShopState::Render()
@@ -104,11 +130,17 @@ void CShopState::Exit()
 	// Remove the entity from EntityManager
 	EntityManager::GetInstance()->RemoveEntity(ShopStateBackground);
 
+
+	EntityManager::GetInstance()->RemoveEntity(Health);
+	EntityManager::GetInstance()->RemoveEntity(Buy);
+
 	EntityManager::GetInstance()->RemoveEntity(Back);
 
 
 	// Remove the meshes which are specific to CMenuState
 	MeshBuilder::GetInstance()->RemoveMesh("MENUSTATE_BKGROUND");
+
+
 
 	// Detach camera from other entities
 	GraphicsManager::GetInstance()->DetachCamera();

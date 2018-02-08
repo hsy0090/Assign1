@@ -29,6 +29,8 @@ private:
 	SpriteEntity* ShopStateBackground;
 	TextEntity* Back;
 
+	TextEntity* Health;
+	TextEntity* Buy;
 
 	double cursorX;
 	double cursorY;
