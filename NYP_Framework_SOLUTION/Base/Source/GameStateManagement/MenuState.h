@@ -29,5 +29,10 @@ private:
 	double cursorX;
 	double cursorY;
 	Vector3 cursor;
+
+	Mesh* playIcon;
+	Mesh* optionIcon;
+	Mesh* shopIcon;
+
 	Mesh* pistol;
 };
