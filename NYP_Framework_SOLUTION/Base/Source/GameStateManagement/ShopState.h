@@ -7,6 +7,7 @@
 #include "MatrixStack.h"
 #include "../FPSCamera.h"
 #include "../SpriteEntity.h"
+#include "../TextEntity.h"
 
 class SceneManager;
 //class TextEntity;
@@ -21,8 +22,15 @@ public:
 	virtual void Render();
 	virtual void Exit();
 
+
+
 private:
 	FPSCamera camera;
 	SpriteEntity* ShopStateBackground;
-	//	TextEntity* textObj[3];
+	TextEntity* Back;
+
+
+	double cursorX;
+	double cursorY;
+	Vector3 cursor;
 };

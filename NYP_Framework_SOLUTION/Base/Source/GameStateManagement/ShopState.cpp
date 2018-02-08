@@ -11,7 +11,9 @@ using namespace std;
 #include "RenderHelper.h"
 #include "../SpriteEntity.h"
 #include "../EntityManager.h"
+#include <sstream>
 
+#include "MouseController.h"
 #include "KeyboardController.h"
 #include "SceneManager.h"
 
@@ -39,11 +41,35 @@ void CShopState::Init()
 		Vector3(halfWindowWidth, halfWindowHeight, 0.0f),
 		Vector3(800.0f, 600.0f, 0.0f));
 
+	float fontSize = 25.0f;
+	float halfFontSize = fontSize / 2.0f;
+
+
+	Back = Create::Text2DObject("text", Vector3(halfWindowWidth, halfWindowHeight + 8 * fontSize, 1.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 0.0f, 0.0f));
+	Back->SetPosition(Vector3(Back->position.x, Application::GetInstance().GetWindowHeight() - Back->position.y, Back->position.z));
+
+	cursor.SetZero();
+
 	cout << "ShopState loaded\n" << endl;
 }
 void CShopState::Update(double dt)
 {
+
+	//back
+	std::ostringstream ss;
+	ss.precision(4);
+	ss << "Back";
+	Back->SetText(ss.str());
+
+	MouseController::GetInstance()->GetMousePosition(cursor.x, cursor.y);
+
 	if (KeyboardController::GetInstance()->IsKeyReleased(VK_SPACE))
+	{
+		cout << "Loading CMenuState" << endl;
+		SceneManager::GetInstance()->SetActiveScene("MenuState");
+	}
+
+	if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB) && EntityManager::GetInstance()->CheckPOverlap(cursor, Back->GetMinAABB(), Back->GetMaxAABB()))
 	{
 		cout << "Loading CMenuState" << endl;
 		SceneManager::GetInstance()->SetActiveScene("MenuState");
@@ -77,6 +103,9 @@ void CShopState::Exit()
 {
 	// Remove the entity from EntityManager
 	EntityManager::GetInstance()->RemoveEntity(ShopStateBackground);
+
+	EntityManager::GetInstance()->RemoveEntity(Back);
+
 
 	// Remove the meshes which are specific to CMenuState
 	MeshBuilder::GetInstance()->RemoveMesh("MENUSTATE_BKGROUND");
