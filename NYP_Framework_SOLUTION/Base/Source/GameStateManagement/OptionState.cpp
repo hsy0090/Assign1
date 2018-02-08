@@ -39,7 +39,7 @@ void COptionState::Init()
 		Vector3(halfWindowWidth, halfWindowHeight, 0.0f),
 		Vector3(800.0f, 600.0f, 0.0f));
 
-	cout << "CMenuState loaded\n" << endl;
+	cout << "COptionState loaded\n" << endl;
 }
 void COptionState::Update(double dt)
 {

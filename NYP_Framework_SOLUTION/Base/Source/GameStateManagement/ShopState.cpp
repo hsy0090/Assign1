@@ -39,7 +39,7 @@ void CShopState::Init()
 		Vector3(halfWindowWidth, halfWindowHeight, 0.0f),
 		Vector3(800.0f, 600.0f, 0.0f));
 
-	cout << "CMenuState loaded\n" << endl;
+	cout << "CShopState loaded\n" << endl;
 }
 void CShopState::Update(double dt)
 {
